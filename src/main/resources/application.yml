@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    #   ???????
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+#    password: 12345678
+#    url: jdbc:mysql://10.151.130.135:3306/pic_node_db?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    password: root
+    url: jdbc:mysql://localhost:3306/procedure_graph?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    type: com.alibaba.druid.pool.DruidDataSource
+
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.example.graph.entity
+  configuration:
+    map-underscore-to-camel-case: true
