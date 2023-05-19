@@ -8,6 +8,6 @@ class GraphApplicationTests {
 
     @Test
     void contextLoads() {
-    }
 
+    }
 }

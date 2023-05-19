@@ -1,6 +1,6 @@
 spring:
   datasource:
-    #   ???????
+
     driver-class-name: com.mysql.jdbc.Driver
     username: root
 #    password: 12345678
@@ -16,4 +16,5 @@ mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.graph.entity
   configuration:
+    # 驼峰和小写下划线映射
     map-underscore-to-camel-case: true
