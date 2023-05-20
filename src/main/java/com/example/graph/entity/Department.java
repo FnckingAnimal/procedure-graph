@@ -1,9 +1,12 @@
 package com.example.graph.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 public class Department {
 
   private String departmentName;
+  @TableField("desc_")
   private String desc;
   private java.sql.Date updateDate;
   private long factoryId;

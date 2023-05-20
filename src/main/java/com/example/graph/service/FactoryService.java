@@ -5,7 +5,6 @@ import com.example.graph.entity.Factory;
 import com.example.graph.entity.result.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface FactoryService{
     public Integer createFactory(String name);
 
