@@ -1,16 +1,14 @@
 package com.example.graph.impl;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.graph.constvalue.Code;
-import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.Factory;
-import com.example.graph.entity.result.ResponseEntity;
+import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.service.FactoryService;
-import com.example.graph.utils.Utils;
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FactoryServiceImpl extends BaseImpl implements FactoryService {
@@ -23,16 +21,25 @@ public class FactoryServiceImpl extends BaseImpl implements FactoryService {
     }
 
     @Override
-    public Factory getFactoryByName(String name) {
+    public FactoryDTO getFactoryByName(String name) {
         QueryWrapper<Factory> wrapper = new QueryWrapper<>();
         wrapper.eq("factory_name", name);
-        return factoryMapper.selectOne(wrapper);
+        Factory factory = factoryMapper.selectOne(wrapper);
+        FactoryDTO factoryDTO = new FactoryDTO();
+        BeanUtils.copyProperties(factory,factoryDTO);
+        return null;
     }
 
     @Override
-    public Factory getFactoryById(Integer id) {
+    public FactoryDTO getFactoryById(Integer id) {
         QueryWrapper<Factory> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
-        return factoryMapper.selectOne(wrapper);
+//        return factoryMapper.selectOne(wrapper);
+        return null;
+    }
+
+    @Override
+    public List<FactoryDTO> getAllFactories() {
+        return null;
     }
 }

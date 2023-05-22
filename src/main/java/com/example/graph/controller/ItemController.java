@@ -12,27 +12,36 @@ import org.springframework.web.bind.annotation.*;
 public class ItemController {
 
     @GetMapping("/getAllItems")
-    public String getAllItems(){
+    public String getAllItems() {
         return null;
     }
+
     @GetMapping("/getItemById/{id}")
-    public String getItemById(@PathVariable Integer id){
+    public String getItemById(@PathVariable Integer id) {
         return null;
     }
-    @GetMapping("/getItemByDepartmentIdAndMachineId")
-    public String getItemByDepartmentIdAndMachineId(@RequestParam Integer departmentId,@RequestParam Integer machineId){
+
+    /*
+    参数可以为空，为空则查所有
+     */
+    @GetMapping("/getItem")
+    public String getItem(@RequestParam Integer factoryId, @RequestParam Integer departmentId,
+                          @RequestParam Integer machineId) {
         return null;
     }
+
     @PostMapping("/createItem")
-    public String createItem(@RequestBody JSONObject json){
+    public String createItem(@RequestBody JSONObject json) {
         return null;
     }
+
     @PostMapping("/updateItem")
-    public String updateItem(@RequestBody JSONObject json){
+    public String updateItem(@RequestBody JSONObject json) {
         return null;
     }
+
     @DeleteMapping("/deleteItem/{id}")
-    public String deleteItem(@PathVariable Integer id){
+    public String deleteItem(@PathVariable Integer id) {
         return null;
     }
 

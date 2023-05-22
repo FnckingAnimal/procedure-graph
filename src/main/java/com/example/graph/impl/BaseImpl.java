@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public abstract class BaseImpl {
-//    @Autowired
     protected FactoryMapper factoryMapper;
-//    @Autowired
     protected DepartmentMapper departmentMapper;
-//    @Autowired
     protected MachineMapper machineMapper;
-    @Autowired
     protected ItemMapper itemMapper;
 
 }

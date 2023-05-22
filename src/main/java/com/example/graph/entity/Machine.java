@@ -1,27 +1,17 @@
 package com.example.graph.entity;
 
 
-public class Machine {
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-  private long id;
+@Data
+@NoArgsConstructor
+public class Machine {
+  @TableId(value = "id",type = IdType.AUTO)
+  private int id;
   private String machineName;
 
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-
-  public String getMachineName() {
-    return machineName;
-  }
-
-  public void setMachineName(String machineName) {
-    this.machineName = machineName;
-  }
 
 }

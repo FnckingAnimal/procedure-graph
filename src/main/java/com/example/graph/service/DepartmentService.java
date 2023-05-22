@@ -10,6 +10,8 @@ public interface DepartmentService {
 
     public List<Department> getDepartmentsByFactoryId(Integer factoryId);
 
+    public Department getDepartmentByFactoryIdAndName(Integer factoryId,String departmentName);
+
     public Integer createDepartment(Department department);
 
     public void updateDepartment(Department department);

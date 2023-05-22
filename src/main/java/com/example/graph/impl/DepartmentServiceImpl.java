@@ -19,8 +19,14 @@ public class DepartmentServiceImpl extends BaseImpl implements DepartmentService
     }
 
     @Override
-    public Integer createDepartment(Department department) {
+    public Department getDepartmentByFactoryIdAndName(Integer factoryId, String departmentName) {
         return null;
+    }
+
+    @Override
+    public Integer createDepartment(Department department) {
+        departmentMapper.insert(department);
+        return department.getId();
     }
 
     @Override
