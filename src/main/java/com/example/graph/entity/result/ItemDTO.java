@@ -1,18 +1,19 @@
 package com.example.graph.entity.result;
 
-import com.example.graph.entity.Link;
-import com.example.graph.entity.Node;
+import com.example.graph.entity.table.Link;
+import com.example.graph.entity.table.Node;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 @Data
 public class ItemDTO {
     /*
     item信息
      */
-    private Integer id;
-    private String desc;
-    private java.sql.Date updateDate;
+    private Integer itemId;
+    private String itemDesc;
+    private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;
 
@@ -37,15 +38,15 @@ public class ItemDTO {
     /*
     流程图节点信息
      */
-    private List<Node> nodeList;
+    private List<Node> nodes;
 
     /*
     流程图link信息
      */
-    private List<Link> linkList;
+    private List<Link> links;
 
     /*
     图例节点信息
      */
-    private List<Node> exampleNodeList;
+    private List<Node> exampleNodes;
 }

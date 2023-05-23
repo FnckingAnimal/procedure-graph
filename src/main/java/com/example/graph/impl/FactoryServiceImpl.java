@@ -1,23 +1,25 @@
 package com.example.graph.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.graph.entity.Factory;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.graph.entity.table.Factory;
 import com.example.graph.entity.result.FactoryDTO;
+import com.example.graph.mapper.FactoryMapper;
 import com.example.graph.service.FactoryService;
-import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.example.graph.service.IFactoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FactoryServiceImpl extends BaseImpl implements FactoryService {
+public class FactoryServiceImpl extends ServiceImpl<FactoryMapper,Factory> implements IFactoryService {
+    FactoryMapper factoryMapper = getBaseMapper();
     @Override
     public Integer createFactory(String factoryName) {
         Factory factory = new Factory();
         factory.setFactoryName(factoryName);
-        Integer insert = factoryMapper.insert(factory);
-        return insert;
+        return factoryMapper.insert(factory);
     }
 
     @Override

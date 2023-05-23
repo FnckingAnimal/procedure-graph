@@ -1,32 +1,47 @@
 package com.example.graph.impl;
 
-import com.example.graph.controller.BaseController;
-import com.example.graph.entity.Machine;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.graph.entity.result.MachineDTO;
+import com.example.graph.entity.table.Machine;
 import com.example.graph.mapper.MachineMapper;
-import com.example.graph.service.MachineService;
+import com.example.graph.service.IMachineService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class MachineServiceImpl extends BaseImpl implements MachineService  {
+public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> implements IMachineService {
+    // TODO: 2023/5/23 试一下autowired有效果没
+    MachineMapper machineMapper = getBaseMapper();
+
     @Override
     public Integer createMachine(Machine machine) {
         machineMapper.insert(machine);
-        return machine.getId();
+        return machine.getMachineId();
     }
 
     @Override
-    public Machine getMachine(Integer id, String name) {
+    public MachineDTO getMachine(Integer id, String name) {
         return null;
     }
 
     @Override
-    public List<Machine> getMachinesByDepartmentId(Integer departmentId) {
+    public List<MachineDTO> getMachinesByDepartmentId(Integer departmentId) {
         return null;
     }
 
     @Override
-    public List<Machine> getMachinesByFactoryId(Integer factoryId) {
+    public List<MachineDTO> getMachinesByFactoryId(Integer factoryId) {
         return null;
+    }
+
+    @Override
+    public void updateMachine(Machine machine) {
+
+    }
+
+    @Override
+    public void deleteMachine(Integer machineId) {
+
     }
 }

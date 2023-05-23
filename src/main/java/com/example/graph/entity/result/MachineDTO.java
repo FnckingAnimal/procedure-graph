@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class MachineDTO {
-    private Integer id;
-    private Integer name;
+    private Integer machineId;
+    private String machineName;
     private List<DepartmentDTO> departments;
 }

@@ -1,9 +1,8 @@
 package com.example.graph.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.graph.entity.ImageNode;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import com.example.graph.entity.table.ImageNode;
+import com.github.yulichang.base.MPJBaseMapper;
 
-public interface ImageNodeMapper extends BaseMapper<ImageNode> {
+public interface ImageNodeMapper extends MPJBaseMapper<ImageNode> {
 }

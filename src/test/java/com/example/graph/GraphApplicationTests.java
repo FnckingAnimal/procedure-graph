@@ -3,9 +3,9 @@ package com.example.graph;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.graph.entity.Department;
-import com.example.graph.entity.Factory;
-import com.example.graph.entity.Item;
+import com.example.graph.entity.table.Department;
+import com.example.graph.entity.table.Factory;
+import com.example.graph.entity.table.Item;
 import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
@@ -13,10 +13,11 @@ import com.example.graph.mapper.DepartmentMapper;
 import com.example.graph.mapper.ItemMapper;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -32,9 +33,9 @@ class GraphApplicationTests {
         MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<Item>()
                 .selectAll(Item.class)
                 .selectAs(Department::getDepartmentName,ItemDTO::getDepartmentName)
-                .selectAs(Department::getDesc,ItemDTO::getDepartmentDesc)
-                .selectAs(Department::getUpdateDate,ItemDTO::getDepartmentUpdateDate)
-                .leftJoin(Department.class, Department::getId, Item::getDepartmentId);
+                .selectAs(Department::getDepartmentDesc,ItemDTO::getDepartmentDesc)
+                .selectAs(Department::getDepartmentUpdateDate,ItemDTO::getDepartmentUpdateDate)
+                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId);
         List<ItemDTO> itemDTOList = itemMapper.selectJoinList(ItemDTO.class,wrapper);
         JSONObject jo = new JSONObject();
         jo.put("data",itemDTOList);
@@ -55,5 +56,23 @@ class GraphApplicationTests {
         factory.setFactoryName("ndasld");
         BeanUtil.copyProperties(factory,factoryDTO);
         System.out.println(factoryDTO);
+    }
+    @Test
+    void testBean(){
+        Factory factory = new Factory();
+        factory.setFactoryName("fname");
+        factory.setFactoryId(123);
+        Department department = new Department();
+        department.setDepartmentDesc("desc***");
+        department.setDepartmentName("name***");
+        department.setFactoryId(156);
+        department.setDepartmentUpdateDate(new Date(new java.util.Date().getTime()));
+        department.setDepartmentId(456);
+        List<Department> list = new ArrayList<>();
+        list.add(department);
+
+        factory.setDepartments(list);
+        FactoryDTO factoryDTO = BeanUtil.copyProperties(factory, FactoryDTO.class);
+        System.out.println(JSON.toJSONString(factoryDTO));
     }
 }

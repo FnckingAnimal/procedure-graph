@@ -1,14 +1,12 @@
 package com.example.graph.service;
 
-import com.alibaba.fastjson2.JSONObject;
-import com.example.graph.entity.Factory;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.graph.entity.result.FactoryDTO;
-import com.example.graph.entity.result.ResponseEntity;
-import org.springframework.stereotype.Service;
+import com.example.graph.entity.table.Factory;
 
 import java.util.List;
 
-public interface FactoryService{
+public interface IFactoryService extends IService<Factory> {
     public Integer createFactory(String name);
 
     public FactoryDTO getFactoryByName(String name);

@@ -1,17 +1,21 @@
-package com.example.graph.entity;
+package com.example.graph.entity.table;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import java.util.Date;
+
+
 @Data
 public class Item {
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Integer itemId;
     @TableField("desc_")
-    private String desc;
-    private java.sql.Date updateDate;
+    private String ItemDesc;
+    @TableField("updateDate")
+    private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;
 

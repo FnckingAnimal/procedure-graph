@@ -14,4 +14,8 @@ public class Utils {
     public static Boolean isEmpty(Collection c) {
         return isNull(c) || c.isEmpty();
     }
+
+    public static Boolean isNotEmpty(Collection c) {
+        return !isEmpty(c);
+    }
 }
