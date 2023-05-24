@@ -14,7 +14,7 @@ public class Item {
     private Integer itemId;
     @TableField("desc_")
     private String ItemDesc;
-    @TableField("updateDate")
+    @TableField("update_date")
     private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;

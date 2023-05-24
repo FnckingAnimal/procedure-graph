@@ -11,9 +11,7 @@ public interface IDepartmentService extends IService<Department> {
 
     public List<DepartmentDTO> getDepartmentsByFactoryId(Integer factoryId);
 
-    public DepartmentDTO getDepartmentByFactoryIdAndName(Integer factoryId,String departmentName);
-
-    public Integer createDepartment(Department department);
+    public DepartmentDTO getDepartmentByFactoryIdAndDepartmentName(Integer factoryId, String departmentName);
 
     public void updateDepartment(Department department);
 

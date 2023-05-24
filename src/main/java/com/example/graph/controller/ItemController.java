@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 
+import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
@@ -24,11 +25,6 @@ import java.util.*;
 @Slf4j
 public class ItemController extends BaseController {
 
-    @GetMapping("/getAllItems")
-    public String getAllItems() {
-        return null;
-    }
-
     @GetMapping("/getItemById/{itemId}")
     public String getItemById(@PathVariable Integer itemId) {
         ResponseEntity resp = new ResponseEntity();
@@ -48,18 +44,18 @@ public class ItemController extends BaseController {
                           @RequestParam Integer machineId) {
         ResponseEntity resp = new ResponseEntity();
         if (Utils.isNotNull(departmentId) && Utils.isNotNull(machineId)) {
-            ItemDTO itemDTO = itemService.getItem(factoryId, departmentId, machineId);
+            ItemDTO itemDTO = itemService.getItem(departmentId, machineId);
             if (Utils.isNull(itemDTO)) {
                 return resp.fail(HintMessage.GET_ITEM_NOT_EXIST).toJSONString();
             }
             return resp.success(itemDTO).toJSONString();
         }
 
-        List<ItemDTO> itemDTOS = itemService.getItems(factoryId, departmentId, machineId);
-        if (Utils.isEmpty(itemDTOS)) {
+        List<ItemDTO> itemDTOs = itemService.getItems(factoryId, departmentId, machineId);
+        if (Utils.isEmpty(itemDTOs)) {
             return resp.fail(HintMessage.GET_ITEM_NOT_EXIST).toJSONString();
         }
-        return resp.success(itemDTOS).toJSONString();
+        return resp.success(itemDTOs).toJSONString();
     }
 
     @Transactional
@@ -86,7 +82,7 @@ public class ItemController extends BaseController {
 
         String itemDesc = json.getString("itemDesc");
         Date itemUpdateTime = DateUtil.parse(json.getString("itemUpdateTime"));
-        ItemDTO existItem = itemService.getItem(factoryId, departmentId, machineId);
+        ItemDTO existItem = itemService.getItem(departmentId, machineId);
         if (Utils.isNotNull(existItem)) {
             return resp.fail(HintMessage.CREATE_ITEM_EXIST, existItem).toJSONString();
         }
@@ -98,102 +94,115 @@ public class ItemController extends BaseController {
         Integer flag = itemService.createItem(item);
         Integer itemId = item.getItemId();
 
-        List<Node> nodeList = new ArrayList<>();
-        List<ImageNode> imageList = new ArrayList<>();
-        List<Link> linkList = new ArrayList<>();
 
-        if (Objects.equals(flag, 1)) {
+
+        if (Objects.equals(flag, Code.CREATE_ONE_SUCCESS)) {
+            saveOrUpdateData(json, itemId);
+        }
+
+        ItemDTO itemById = itemService.getItemById(itemId);
+        return resp.success(itemById).toJSONString();
+    }
+
+    private void saveOrUpdateData(JSONObject json, Integer itemId) {
+        List<Node> nodeList = new ArrayList<>();
+        List<Link> linkList = new ArrayList<>();
+        List<ImageNode> imageList = new ArrayList<>();
             /*
             创建节点和link
              */
-            JSONArray nodeListJA = json.getJSONArray("nodeList");
-            JSONArray linkListJA = json.getJSONArray("linkList");
-            JSONArray exampleNodeListJA = json.getJSONArray("exampleNodeList");
-            if (Utils.isNotEmpty(nodeListJA)) {
+        JSONArray nodeListJA = json.getJSONArray("nodeList");
+        JSONArray linkListJA = json.getJSONArray("linkList");
+        JSONArray exampleNodeListJA = json.getJSONArray("exampleNodeList");
+        if (Utils.isNotEmpty(nodeListJA)) {
 
 
-                for (int i = 0; i < nodeListJA.size(); i++) {
-                    JSONObject nodeJO = nodeListJA.getJSONObject(i);
-                    JSONObject metaJO = nodeJO.getJSONObject("meta");
-                    JSONArray imageJA = metaJO.getJSONArray("image");
-                    List<Integer> coordinate = nodeJO.getList("coordinate", Integer.class);
-                    Node node = new Node();
+            for (int i = 0; i < nodeListJA.size(); i++) {
+                JSONObject nodeJO = nodeListJA.getJSONObject(i);
+                JSONObject metaJO = nodeJO.getJSONObject("meta");
+                JSONArray imageJA = metaJO.getJSONArray("image");
+                List<Integer> coordinate = nodeJO.getList("coordinate", Integer.class);
+                Node node = new Node();
 
-                    node.setId(nodeJO.getString("id"));
-                    node.setFlag(nodeJO.getInteger("flag"));
-                    node.setX(coordinate.get(0));
-                    node.setY(coordinate.get(1));
-                    node.setWidth(nodeJO.getInteger("width"));
-                    node.setHeight(nodeJO.getInteger("height"));
-                    node.setLabel(metaJO.getString("label"));
-                    node.setName(metaJO.getString("name"));
-                    node.setDesc(metaJO.getString("desc"));
-                    node.setType(metaJO.getString("type"));
-                    nodeList.add(node);
+                node.setId(nodeJO.getString("id"));
+                node.setItemId(itemId);
+                node.setFlag(Code.NODE);
+                node.setX(coordinate.get(0));
+                node.setY(coordinate.get(1));
+                node.setWidth(nodeJO.getInteger("width"));
+                node.setHeight(nodeJO.getInteger("height"));
+                node.setLabel(metaJO.getString("label"));
+                node.setName(metaJO.getString("name"));
+                node.setDesc(metaJO.getString("desc"));
+                node.setType(metaJO.getString("type"));
+                nodeList.add(node);
 
-                    if (Utils.isNotEmpty(imageJA)) {
-                        for (int j = 0; j < imageJA.size(); j++) {
-                            ImageNode imageNode = new ImageNode();
-                            imageNode.setUrl(imageJA.getObject(j, String.class));
-                            imageNode.setNodeId(node.getId());
-                            imageList.add(imageNode);
-                        }
+                if (Utils.isNotEmpty(imageJA)) {
+                    for (int j = 0; j < imageJA.size(); j++) {
+                        ImageNode imageNode = new ImageNode();
+                        imageNode.setUrl(imageJA.getObject(j, String.class));
+                        imageNode.setNodeId(node.getId());
+                        imageList.add(imageNode);
                     }
                 }
             }
-            if (Utils.isNotEmpty(linkListJA)) {
-                for (int i = 0; i < linkListJA.size(); i++) {
-                    Link link = new Link();
-                    JSONObject jo = linkListJA.getJSONObject(i);
-                    List<Integer> startAt = jo.getList("startAt", Integer.class);
-                    List<Integer> endAt = jo.getList("endAt", Integer.class);
+        }
+        if (Utils.isNotEmpty(linkListJA)) {
+            for (int i = 0; i < linkListJA.size(); i++) {
+                Link link = new Link();
+                JSONObject jo = linkListJA.getJSONObject(i);
+                List<Integer> startAt = jo.getList("startAt", Integer.class);
+                List<Integer> endAt = jo.getList("endAt", Integer.class);
 
-                    link.setId(jo.getString("id"));
-                    link.setItemId(item.getItemId());
-                    link.setStartId(jo.getString("startId"));
-                    link.setEndId(jo.getString("endId"));
-                    link.setStartX(startAt.get(0));
-                    link.setStartY(startAt.get(1));
-                    link.setEndX(endAt.get(0));
-                    link.setEndY(endAt.get(1));
-                    linkList.add(link);
-                }
+                link.setId(jo.getString("id"));
+                link.setItemId(itemId);
+                link.setStartId(jo.getString("startId"));
+                link.setEndId(jo.getString("endId"));
+                link.setStartX(startAt.get(0));
+                link.setStartY(startAt.get(1));
+                link.setEndX(endAt.get(0));
+                link.setEndY(endAt.get(1));
+                linkList.add(link);
             }
-            if (Utils.isNotEmpty(exampleNodeListJA)) {
-                for (int i = 0; i < exampleNodeListJA.size(); i++) {
-                    JSONObject nodeJO = exampleNodeListJA.getJSONObject(i);
-                    JSONObject metaJO = nodeJO.getJSONObject("meta");
-                    Node node = new Node();
+        }
+        if (Utils.isNotEmpty(exampleNodeListJA)) {
+            for (int i = 0; i < exampleNodeListJA.size(); i++) {
+                JSONObject nodeJO = exampleNodeListJA.getJSONObject(i);
+                JSONObject metaJO = nodeJO.getJSONObject("meta");
+                Node node = new Node();
 
-                    node.setId(nodeJO.getString("id"));
-                    node.setFlag(nodeJO.getInteger("flag"));
-                    node.setWidth(nodeJO.getInteger("width"));
-                    node.setHeight(nodeJO.getInteger("height"));
-                    node.setLabel(metaJO.getString("label"));
-                    node.setName(metaJO.getString("name"));
-                    node.setType(metaJO.getString("type"));
-                    nodeList.add(node);
-                }
+                node.setId(nodeJO.getString("id"));
+                node.setItemId(itemId);
+                node.setFlag(Code.EXAMPLE_NODE);
+                node.setWidth(nodeJO.getInteger("width"));
+                node.setHeight(nodeJO.getInteger("height"));
+                node.setLabel(metaJO.getString("label"));
+                node.setName(metaJO.getString("name"));
+                node.setType(metaJO.getString("type"));
+                nodeList.add(node);
             }
         }
         nodeService.saveOrUpdateBatch(nodeList);
         linkService.saveOrUpdateBatch(linkList);
         imageNodeService.saveOrUpdateBatch(imageList);
-        ItemDTO itemById = itemService.getItemById(itemId);
-        return resp.success(itemById).toJSONString();
     }
 
     @PostMapping("/saveOrUpdateItem")
     public String updateItem(@RequestBody JSONObject json) {
         JSONObject data = json.getJSONObject("data");
         Integer itemId = data.getInteger("id");
-
-        return null;
+        saveOrUpdateData(data,itemId);
+        return new ResponseEntity().success().toJSONString();
     }
 
     @DeleteMapping("/deleteItem/{id}")
     public String deleteItem(@PathVariable Integer id) {
-        return null;
+        itemService.removeById(id);
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("item_id",id);
+        nodeService.removeByMap(condition);
+        linkService.removeByMap(condition);
+        return new ResponseEntity().success().toJSONString();
     }
 
 }

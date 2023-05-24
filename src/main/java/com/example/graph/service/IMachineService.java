@@ -8,7 +8,7 @@ import java.util.List;
 public interface IMachineService extends IService<Machine> {
     Integer createMachine(Machine machine);
 
-    MachineDTO getMachine(Integer id, String name);
+    MachineDTO getMachineByName( String name);
     List<MachineDTO> getMachinesByDepartmentId(Integer departmentId);
 
     List<MachineDTO> getMachinesByFactoryId(Integer factoryId);

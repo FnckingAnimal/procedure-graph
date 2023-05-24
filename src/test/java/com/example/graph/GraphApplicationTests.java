@@ -3,6 +3,7 @@ package com.example.graph;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.graph.entity.table.Department;
 import com.example.graph.entity.table.Factory;
 import com.example.graph.entity.table.Item;
@@ -10,6 +11,7 @@ import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
 import com.example.graph.mapper.DepartmentMapper;
+import com.example.graph.mapper.FactoryMapper;
 import com.example.graph.mapper.ItemMapper;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @SpringBootTest
@@ -27,26 +30,44 @@ class GraphApplicationTests {
     ItemMapper itemMapper;
     @Autowired
     DepartmentMapper departmentMapper;
+    @Autowired
+    FactoryMapper factoryMapper ;
 
     @Test
     void contextLoads() {
-        MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<Item>()
-                .selectAll(Item.class)
-                .selectAs(Department::getDepartmentName,ItemDTO::getDepartmentName)
-                .selectAs(Department::getDepartmentDesc,ItemDTO::getDepartmentDesc)
-                .selectAs(Department::getDepartmentUpdateDate,ItemDTO::getDepartmentUpdateDate)
-                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId);
-        List<ItemDTO> itemDTOList = itemMapper.selectJoinList(ItemDTO.class,wrapper);
-        JSONObject jo = new JSONObject();
-        jo.put("data",itemDTOList);
-        System.out.println(JSON.toJSONString(jo));
+        MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
+        wrapper.select(Item::getItemId)
+                .select(Department::getDepartmentId)
+                .leftJoin(Department.class,"dept",Department::getDepartmentId,Item::getDepartmentId)
+                .eq("dept.id",1);
+        List<ItemDTO> itemDTOList = itemMapper.selectJoinList(ItemDTO.class, wrapper);
+        System.out.println(JSON.toJSONString(itemDTOList));
     }
     @Test
     void departmentTest(){
-        List<Department> department = departmentMapper.selectList(null);
-        ResponseEntity resp = new ResponseEntity(department);
-        System.out.println(department);
-        System.out.println(resp.toJSONString());
+        Integer factoryId = 1;
+        MPJLambdaWrapper<Department> wrapperDepartment = new MPJLambdaWrapper<>();
+        wrapperDepartment.select(Department::getDepartmentId)
+                .selectAs(Factory::getFactoryId,"factory_id")
+                .leftJoin(Factory.class,Factory::getFactoryId,Department::getFactoryId)
+                .eq("factory_id",factoryId);
+        List<Integer> idList = departmentMapper.selectJoinList(Department.class,wrapperDepartment).stream().map(Department::getDepartmentId).collect(Collectors.toList());
+
+        MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
+        wrapper.select(Item::getItemId,Item::getItemDesc)
+                .select(Factory::getFactoryId)
+                .in("department_id",idList);
+        List<ItemDTO> itemDTOList = itemMapper.selectJoinList(ItemDTO.class, wrapper);
+        System.out.println(JSON.toJSONString(itemDTOList));
+
+
+
+    }
+    @Test
+    void testName(){
+        QueryWrapper<Factory> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", 1);
+        System.out.println(JSONObject.toJSONString(factoryMapper.selectOne(wrapper)));
     }
     @Test
     void testJson(){
@@ -54,8 +75,9 @@ class GraphApplicationTests {
         Factory factory = new Factory();
         factory.setFactoryId(123);
         factory.setFactoryName("ndasld");
-        BeanUtil.copyProperties(factory,factoryDTO);
-        System.out.println(factoryDTO);
+        List<Factory> factoryList = new ArrayList<>();
+        factoryList.add(factory);
+        System.out.println(BeanUtil.copyToList(factoryList,FactoryDTO.class));
     }
     @Test
     void testBean(){
@@ -70,8 +92,6 @@ class GraphApplicationTests {
         department.setDepartmentId(456);
         List<Department> list = new ArrayList<>();
         list.add(department);
-
-        factory.setDepartments(list);
         FactoryDTO factoryDTO = BeanUtil.copyProperties(factory, FactoryDTO.class);
         System.out.println(JSON.toJSONString(factoryDTO));
     }

@@ -1,5 +1,6 @@
 package com.example.graph.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.DepartmentDTO;
@@ -17,7 +18,7 @@ import java.util.List;
 public class MachineController extends BaseController {
     @PostMapping("/createMachine")
     public String createMachine(@RequestParam String name) {
-        MachineDTO machineDTO = machineService.getMachine(null, name);
+        MachineDTO machineDTO = machineService.getMachineByName(name);
         ResponseEntity resp = new ResponseEntity();
         if (Utils.isNotNull(machineDTO)) {
             resp.setMessage(HintMessage.CREATE_MACHINE_EXIST);
@@ -47,24 +48,24 @@ public class MachineController extends BaseController {
     @PostMapping("/updateMachine")
     public String updateMachine(@RequestParam Integer id, @RequestParam String newName) {
         ResponseEntity resp = new ResponseEntity();
-        MachineDTO machineDTO = machineService.getMachine(id, null);
+        MachineDTO machineDTO = BeanUtil.copyProperties(machineService.getById(id), MachineDTO.class);
         if (Utils.isNull(machineDTO)) {
             resp.fail(HintMessage.MACHINES_NOT_EXIST_BY_ID);
         }
         Machine machine = new Machine(id, newName);
 
         machineService.updateMachine(machine);
-        return null;
+        return new ResponseEntity().success().toJSONString();
     }
 
     @DeleteMapping("/deleteMachineById/{machineId}")
     public String deleteMachine(@PathVariable Integer machineId) {
         List<DepartmentDTO> departmentDTOS = departmentService.getDepartmentsByMachineId(machineId);
         ResponseEntity resp = new ResponseEntity();
-        if (Utils.isNotEmpty(departmentDTOS)){
-            resp.fail(HintMessage.DELETE_MACHINE_FAIL,departmentDTOS);
+        if (Utils.isNotEmpty(departmentDTOS)) {
+            resp.fail(HintMessage.DELETE_MACHINE_FAIL, departmentDTOS);
         }
         machineService.deleteMachine(machineId);
-        return new ResponseEntity(null).toJSONString();
+        return new ResponseEntity().success().toJSONString();
     }
 }

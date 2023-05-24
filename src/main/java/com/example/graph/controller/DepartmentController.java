@@ -12,6 +12,7 @@ import com.example.graph.utils.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class DepartmentController extends BaseController {
             return resp.toJSONString();
         }
         String departmentName = json.getString("name");
-        DepartmentDTO department = departmentService.getDepartmentByFactoryIdAndName(factoryId, departmentName);
+        DepartmentDTO department = departmentService.getDepartmentByFactoryIdAndDepartmentName(factoryId, departmentName);
         // 2 厂区存在，但部门已存在
         if (Utils.isNotNull(department)) {
             resp.setCode(Code.FAILURE);
@@ -60,5 +61,20 @@ public class DepartmentController extends BaseController {
         }
         return new ResponseEntity(departments).toJSONString();
     }
-
+    @PostMapping("/updateDepartment")
+    public String updateDepartment(@RequestBody JSONObject json){
+        Department department = new Department();
+        department.setDepartmentId(json.getInteger("departmentId"));
+        department.setDepartmentUpdateDate(new Date());
+        department.setDepartmentName(json.getString("departmentName"));
+        department.setDepartmentDesc(json.getString("departmentDesc"));
+        department.setFactoryId(json.getInteger("factoryId"));
+        departmentService.save(department);
+        return new ResponseEntity().success().toJSONString();
+    }
+    @DeleteMapping("deleteDepartment/{departmentId}")
+    public String deleteDepartment(@PathVariable Integer departmentId){
+        departmentService.removeById(departmentId);
+        return new ResponseEntity().success().toJSONString();
+    }
 }

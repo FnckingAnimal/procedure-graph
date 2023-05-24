@@ -10,9 +10,11 @@ public interface IItemService extends IService<Item> {
 
     ItemDTO getItemById(Integer itemId);
 
-    ItemDTO getItem(Integer factoryId, Integer departmentId, Integer machineId);
+    ItemDTO getItem(Integer departmentId, Integer machineId);
 
     List<ItemDTO> getItems(Integer factoryId, Integer departmentId, Integer machineId);
 
     Integer createItem(Item item);
+
+    List<ItemDTO> getItemsByFactoryId(Integer factoryId);
 }

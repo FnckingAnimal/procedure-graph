@@ -28,7 +28,7 @@ public class ItemDTO {
      */
     private String departmentName;
     private String departmentDesc;
-    private java.sql.Date departmentUpdateDate;
+    private Date departmentUpdateDate;
 
     /*
     机种信息
@@ -38,15 +38,15 @@ public class ItemDTO {
     /*
     流程图节点信息
      */
-    private List<Node> nodes;
+    private List<NodeDTO> nodes;
 
     /*
     流程图link信息
      */
-    private List<Link> links;
+    private List<LinkDTO> links;
 
     /*
     图例节点信息
      */
-    private List<Node> exampleNodes;
+    private List<NodeDTO> exampleNodes;
 }

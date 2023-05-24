@@ -1,17 +1,14 @@
 package com.example.graph.controller;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
+import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.result.FactoryDTO;
+import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
 import com.example.graph.utils.Utils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,12 +26,9 @@ public class FactoryController extends BaseController {
             factoryService.createFactory(factoryName);
             factoryByName = factoryService.getFactoryByName(factoryName);
 
-            resp = new ResponseEntity(factoryByName);
-            return resp.toJSONString();
+            return new ResponseEntity(factoryByName).toJSONString();
         }
-        resp.setMessage(HintMessage.CREATE_FACTORY_EXIST);
-        resp.setCode(Code.FAILURE);
-        return JSON.toJSONString(resp);
+        return resp.fail(HintMessage.CREATE_FACTORY_EXIST).toJSONString();
     }
 
     @GetMapping("/getAllFactories")
@@ -43,5 +37,17 @@ public class FactoryController extends BaseController {
         return new ResponseEntity(allFactories).toJSONString();
     }
 
-
+    @DeleteMapping("/deleteFactoryById/{factoryId}")
+    public String deleteFactoryById(@PathVariable Integer factoryId) {
+        List<DepartmentDTO> departmentsByFactoryId = departmentService.getDepartmentsByFactoryId(factoryId);
+        if (Utils.isNotEmpty(departmentsByFactoryId)) {
+            return new ResponseEntity().fail(HintMessage.DELETE_FACTORY_FAIL_BY_DEPARTMENT, departmentsByFactoryId).toJSONString();
+        }
+        List<ItemDTO> itemsByFactoryId = itemService.getItemsByFactoryId(factoryId);
+        if (Utils.isNotEmpty(itemsByFactoryId)) {
+            return new ResponseEntity().fail(HintMessage.DELETE_FACTORY_FAIL_BY_ITEM, itemsByFactoryId).toJSONString();
+        }
+        factoryService.deleteFactoryById(factoryId);
+        return new ResponseEntity().success().toJSONString();
+    }
 }
