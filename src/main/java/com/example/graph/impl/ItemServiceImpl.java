@@ -68,6 +68,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             List<LinkDTO> linkDTOs = new ArrayList<>();
             for (Link link : linkList) {
                 LinkDTO linkDTO = new LinkDTO(link);
+                linkDTOs.add(linkDTO);
             }
             itemDTO.setLinks(linkDTOs);
         }
@@ -95,22 +96,18 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         }
         MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
         wrapper.select(Item::getItemId);
-        if (Utils.isNotNull(machineId)) {
-            wrapper.leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
-                    .eq(Item::getMachineId, machineId);
-        }
-        if (Utils.isNotNull(factoryId)) {
-            wrapper.leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
-                    .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId)
-                    .eq(Factory::getFactoryId, factoryId);
-            if (Utils.isNotNull(departmentId)) {
-                wrapper.eq(Department::getDepartmentId, Item::getDepartmentId);
-            }
 
-        } else {
-            if (Utils.isNotNull(departmentId)) {
-                wrapper.leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId);
-            }
+        wrapper.leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
+                .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
+                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId);
+        if (Utils.isNotNull(machineId)){
+            wrapper.eq(Machine::getMachineId,machineId);
+        }
+        if (Utils.isNotNull(departmentId)){
+            wrapper.eq(Department::getDepartmentId,departmentId);
+        }
+        if (Utils.isNotNull(factoryId)){
+            wrapper.eq(Factory::getFactoryId,factoryId);
         }
         items = itemMapper.selectJoinList(ItemDTO.class, wrapper);
         if (Utils.isNotEmpty(items)){
