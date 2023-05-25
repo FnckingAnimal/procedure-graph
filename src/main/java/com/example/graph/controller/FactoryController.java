@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/factory")
+@CrossOrigin(origins = "*")
 public class FactoryController extends BaseController {
 
     @PostMapping("/createFactory")

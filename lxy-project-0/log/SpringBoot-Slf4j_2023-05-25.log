@@ -1,0 +1,235 @@
+2023-05-25 14:42:30.053 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 19408 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 14:42:30.054 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 14:42:30.629 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 14:42:30.633 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 14:42:30.636 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 14:42:30.636 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 14:42:30.694 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 14:42:30.694 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 607 ms
+2023-05-25 14:42:30.750 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 14:42:30.796 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 14:42:30.822 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 14:42:31.265 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !‰∏çÂª∫ËÆÆÂ¶ÇÊ≠§ËØ∑‰ΩøÁî®ÂåÖË£ÖÁ±ª in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 14:42:31.505 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 14:42:31.519 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 14:42:31.524 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 1.719 seconds (JVM running for 2.318)
+2023-05-25 14:42:35.164 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 14:42:35.165 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 14:57:09.527 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 34060 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 14:57:09.529 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 14:57:10.121 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 14:57:10.125 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 14:57:10.125 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 14:57:10.125 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 14:57:10.185 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 14:57:10.185 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 622 ms
+2023-05-25 14:57:10.240 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 14:57:10.280 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 14:57:10.301 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 14:57:10.743 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !‰∏çÂª∫ËÆÆÂ¶ÇÊ≠§ËØ∑‰ΩøÁî®ÂåÖË£ÖÁ±ª in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 14:57:10.834 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'minioController': Unsatisfied dependency expressed through field 'minioUtils'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'minioUtils': Unsatisfied dependency expressed through field 'client'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'io.minio.MinioClient' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2023-05-25 14:57:10.834 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 14:57:10.835 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 14:57:10.836 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2023-05-25 14:57:10.844 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-05-25 14:57:10.858 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field client in com.example.graph.utils.MinioUtils required a bean of type 'io.minio.MinioClient' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'io.minio.MinioClient' in your configuration.
+
+2023-05-25 14:58:52.633 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 34756 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 14:58:52.636 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 14:58:53.226 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 14:58:53.229 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 14:58:53.229 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 14:58:53.230 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 14:58:53.290 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 14:58:53.290 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 618 ms
+2023-05-25 14:58:53.336 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 14:58:53.380 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 14:58:53.397 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 14:58:53.837 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !‰∏çÂª∫ËÆÆÂ¶ÇÊ≠§ËØ∑‰ΩøÁî®ÂåÖË£ÖÁ±ª in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 14:58:54.178 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 14:58:54.188 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 14:58:54.193 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 1.797 seconds (JVM running for 2.38)
+2023-05-25 15:00:11.194 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 15:00:11.195 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 15:00:15.512 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 28116 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 15:00:15.514 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 15:00:16.091 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 15:00:16.094 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 15:00:16.095 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 15:00:16.095 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 15:00:16.153 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 15:00:16.153 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 608 ms
+2023-05-25 15:00:16.207 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 15:00:16.253 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 15:00:16.270 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 15:00:16.710 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !‰∏çÂª∫ËÆÆÂ¶ÇÊ≠§ËØ∑‰ΩøÁî®ÂåÖË£ÖÁ±ª in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 15:00:17.050 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 15:00:17.060 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 15:00:17.064 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 1.797 seconds (JVM running for 2.372)
+2023-05-25 15:03:01.632 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.graph.GraphApplicationTests], using SpringBootContextLoader
+2023-05-25 15:03:01.635 [main] INFO  o.s.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.graph.GraphApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-05-25 15:03:01.635 [main] INFO  o.s.t.c.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.graph.GraphApplicationTests]: GraphApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-05-25 15:03:01.705 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.graph.GraphApplication for test class com.example.graph.GraphApplicationTests
+2023-05-25 15:03:01.769 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-05-25 15:03:01.778 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4816278d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4eaf3684, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@40317ba2, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3c01cfa1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@45d2ade3, org.springframework.test.context.support.DirtiesContextTestExecutionListener@727eb8cb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@39d9314d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@b978d10, org.springframework.test.context.event.EventPublishingTestExecutionListener@5b7a8434, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5c45d770, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2ce6c6ec, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@1bae316d, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@147a5d08, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6676f6a0, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7cbd9d24]
+2023-05-25 15:03:02.025 [main] INFO  com.example.graph.GraphApplicationTests - Starting GraphApplicationTests using Java 1.8.0_372 on CM-H7SFC230502A with PID 20536 (started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 15:03:02.026 [main] INFO  com.example.graph.GraphApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 15:03:02.775 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 15:03:02.925 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 15:03:02.963 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 15:03:03.487 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !≤ªΩ®“È»Á¥À«Î π”√∞¸◊∞¿‡ in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 15:03:04.526 [main] INFO  com.example.graph.GraphApplicationTests - Started GraphApplicationTests in 2.723 seconds (JVM running for 3.435)
+2023-05-25 15:03:05.185 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 15:03:05.190 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 15:04:07.305 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.graph.GraphApplicationTests], using SpringBootContextLoader
+2023-05-25 15:04:07.308 [main] INFO  o.s.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.graph.GraphApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-05-25 15:04:07.308 [main] INFO  o.s.t.c.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.graph.GraphApplicationTests]: GraphApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-05-25 15:04:07.375 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.graph.GraphApplication for test class com.example.graph.GraphApplicationTests
+2023-05-25 15:04:07.459 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-05-25 15:04:07.469 [main] INFO  o.s.b.t.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4816278d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4eaf3684, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@40317ba2, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3c01cfa1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@45d2ade3, org.springframework.test.context.support.DirtiesContextTestExecutionListener@727eb8cb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@39d9314d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@b978d10, org.springframework.test.context.event.EventPublishingTestExecutionListener@5b7a8434, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5c45d770, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2ce6c6ec, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@1bae316d, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@147a5d08, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6676f6a0, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7cbd9d24]
+2023-05-25 15:04:07.725 [main] INFO  com.example.graph.GraphApplicationTests - Starting GraphApplicationTests using Java 1.8.0_372 on CM-H7SFC230502A with PID 8232 (started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 15:04:07.726 [main] INFO  com.example.graph.GraphApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 15:04:08.465 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 15:04:08.614 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 15:04:08.651 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 15:04:09.184 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !≤ªΩ®“È»Á¥À«Î π”√∞¸◊∞¿‡ in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 15:04:10.258 [main] INFO  com.example.graph.GraphApplicationTests - Started GraphApplicationTests in 2.761 seconds (JVM running for 3.474)
+2023-05-25 15:04:10.929 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 15:04:10.934 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 15:28:49.746 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 15:28:49.747 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 15:43:24.223 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 22828 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 15:43:24.226 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 15:43:24.826 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 15:43:24.829 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 15:43:24.830 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 15:43:24.830 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 15:43:24.883 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 15:43:24.884 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 624 ms
+2023-05-25 15:43:24.947 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 15:43:24.988 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 15:43:24.993 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 15:43:25.798 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 15:43:25.808 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 15:43:25.812 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 1.841 seconds (JVM running for 2.435)
+2023-05-25 15:43:40.195 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-25 15:43:40.196 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-05-25 15:43:40.196 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2023-05-25 15:45:30.450 [http-nio-8080-exec-5] WARN  o.s.w.m.support.StandardServletMultipartResolver - Failed to perform cleanup of multipart items
+java.io.UncheckedIOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	at org.apache.tomcat.util.http.fileupload.disk.DiskFileItem.delete(DiskFileItem.java:431)
+	at org.apache.catalina.core.ApplicationPart.delete(ApplicationPart.java:53)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.cleanupMultipart(StandardServletMultipartResolver.java:134)
+	at org.springframework.web.servlet.DispatcherServlet.cleanupMultipart(DispatcherServlet.java:1251)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1108)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.io.IOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	... 44 common frames omitted
+2023-05-25 15:45:30.452 [http-nio-8080-exec-5] ERROR org.apache.coyote.http11.Http11Processor - Error processing request
+java.io.UncheckedIOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	at org.apache.tomcat.util.http.fileupload.disk.DiskFileItem.delete(DiskFileItem.java:431)
+	at org.apache.catalina.core.ApplicationPart.delete(ApplicationPart.java:53)
+	at org.apache.catalina.connector.Request.recycle(Request.java:474)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:421)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.io.IOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	... 13 common frames omitted
+2023-05-25 15:45:30.454 [http-nio-8080-exec-5] ERROR org.apache.coyote.http11.Http11NioProtocol - Error reading request, ignored
+java.io.UncheckedIOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	at org.apache.tomcat.util.http.fileupload.disk.DiskFileItem.delete(DiskFileItem.java:431)
+	at org.apache.catalina.core.ApplicationPart.delete(ApplicationPart.java:53)
+	at org.apache.catalina.connector.Request.recycle(Request.java:474)
+	at org.apache.catalina.connector.CoyoteAdapter.log(CoyoteAdapter.java:494)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:419)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.io.IOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	... 13 common frames omitted
+2023-05-25 15:45:30.454 [http-nio-8080-exec-5] ERROR org.apache.tomcat.util.net.NioEndpoint - Error running socket processor
+java.io.UncheckedIOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	at org.apache.tomcat.util.http.fileupload.disk.DiskFileItem.delete(DiskFileItem.java:431)
+	at org.apache.catalina.core.ApplicationPart.delete(ApplicationPart.java:53)
+	at org.apache.catalina.connector.Request.recycle(Request.java:474)
+	at org.apache.catalina.connector.CoyoteAdapter.log(CoyoteAdapter.java:494)
+	at org.apache.catalina.connector.CoyoteAdapter.checkRecycled(CoyoteAdapter.java:517)
+	at org.apache.coyote.http11.Http11Processor.recycle(Http11Processor.java:1415)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.release(AbstractProtocol.java:1129)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1090)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.io.IOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
+	... 14 common frames omitted

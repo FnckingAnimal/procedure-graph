@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/machine")
+@CrossOrigin(origins = "*")
 public class MachineController extends BaseController {
     @PostMapping("/createMachine")
     public String createMachine(@RequestParam String name) {

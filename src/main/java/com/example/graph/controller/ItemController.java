@@ -22,6 +22,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/item")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class ItemController extends BaseController {
 
     @GetMapping("/getItemById/{itemId}")

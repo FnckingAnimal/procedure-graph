@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/department")
+@CrossOrigin(origins = "*")
 public class DepartmentController extends BaseController {
     @PostMapping("/createDepartment")
     public String createDepartment(@RequestBody JSONObject json) {
