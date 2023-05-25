@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/machine")
 public class MachineController extends BaseController {
     @PostMapping("/createMachine")
@@ -47,6 +47,10 @@ public class MachineController extends BaseController {
 
     @PostMapping("/updateMachine")
     public String updateMachine(@RequestParam Integer id, @RequestParam String newName) {
+        MachineDTO machineByName = machineService.getMachineByName(newName);
+        if (Utils.isNotNull(machineByName)) {
+            return new ResponseEntity().fail(HintMessage.UPDATE_MACHINE_EXIST).toJSONString();
+        }
         ResponseEntity resp = new ResponseEntity();
         MachineDTO machineDTO = BeanUtil.copyProperties(machineService.getById(id), MachineDTO.class);
         if (Utils.isNull(machineDTO)) {

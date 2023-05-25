@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.table.Department;
 import com.example.graph.entity.table.Factory;
 import com.example.graph.entity.table.Item;
@@ -14,6 +15,7 @@ import com.example.graph.mapper.DepartmentMapper;
 import com.example.graph.mapper.FactoryMapper;
 import com.example.graph.mapper.ItemMapper;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @SpringBootTest
+@Slf4j
 class GraphApplicationTests {
     @Autowired
     ItemMapper itemMapper;
@@ -85,7 +88,6 @@ class GraphApplicationTests {
         factory.setFactoryName("fname");
         factory.setFactoryId(123);
         Department department = new Department();
-        department.setDepartmentDesc("desc***");
         department.setDepartmentName("name***");
         department.setFactoryId(156);
         department.setDepartmentUpdateDate(new Date(new java.util.Date().getTime()));
@@ -94,5 +96,14 @@ class GraphApplicationTests {
         list.add(department);
         FactoryDTO factoryDTO = BeanUtil.copyProperties(factory, FactoryDTO.class);
         System.out.println(JSON.toJSONString(factoryDTO));
+    }
+    @Test
+    void testGetDepartmentsByFactoryId(){
+        MPJLambdaWrapper<Department> wrapper = new MPJLambdaWrapper<>();
+        wrapper.selectAll(Department.class)
+                .select(Factory::getFactoryName)
+                .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
+                .eq("factory_id", 1);
+        log.info(JSON.toJSONString(departmentMapper.selectJoinList(DepartmentDTO.class, wrapper)));
     }
 }

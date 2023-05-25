@@ -20,7 +20,8 @@ import java.util.List;
 
 @Service
 public class FactoryServiceImpl extends ServiceImpl<FactoryMapper, Factory> implements IFactoryService {
-    FactoryMapper factoryMapper = getBaseMapper();
+    @Resource
+    FactoryMapper factoryMapper ;
     @Resource
     DepartmentMapper departmentMapper;
     @Resource

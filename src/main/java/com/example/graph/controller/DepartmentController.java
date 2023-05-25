@@ -1,6 +1,7 @@
 package com.example.graph.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
@@ -9,13 +10,12 @@ import com.example.graph.entity.table.Department;
 import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.entity.result.ResponseEntity;
 import com.example.graph.utils.Utils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/department")
 public class DepartmentController extends BaseController {
     @PostMapping("/createDepartment")
@@ -29,7 +29,10 @@ public class DepartmentController extends BaseController {
             resp.setMessage(HintMessage.FACTORY_NOT_EXIST);
             return resp.toJSONString();
         }
-        String departmentName = json.getString("name");
+        String departmentName = json.getString("departmentName");
+        if (StringUtils.isEmpty(departmentName)){
+            return new ResponseEntity().fail(HintMessage.DEPARTMENT_NAME_NULL).toJSONString();
+        }
         DepartmentDTO department = departmentService.getDepartmentByFactoryIdAndDepartmentName(factoryId, departmentName);
         // 2 厂区存在，但部门已存在
         if (Utils.isNotNull(department)) {
@@ -41,8 +44,13 @@ public class DepartmentController extends BaseController {
         // 3 厂区存在，部门不存在，可以成功创建
         Department dept = new Department();
         dept.setDepartmentName(departmentName);
-        dept.setDepartmentDesc(json.getString("desc"));
-        dept.setDepartmentUpdateDate(DateUtil.parse(json.getString("updateDate")));
+        String updateDate = json.getString("updateDate");
+        if (StringUtils.isEmpty(updateDate)) {
+            dept.setDepartmentUpdateDate(new Date());
+        } else {
+            dept.setDepartmentUpdateDate(DateUtil.parse(updateDate));
+        }
+
         dept.setFactoryId(factoryId);
         // mybatis-plus 的insert生成的主键自动填充进对象
         departmentService.save(dept);
@@ -61,19 +69,24 @@ public class DepartmentController extends BaseController {
         }
         return new ResponseEntity(departments).toJSONString();
     }
+
     @PostMapping("/updateDepartment")
-    public String updateDepartment(@RequestBody JSONObject json){
+    public String updateDepartment(@RequestBody JSONObject json) {
         Department department = new Department();
         department.setDepartmentId(json.getInteger("departmentId"));
         department.setDepartmentUpdateDate(new Date());
-        department.setDepartmentName(json.getString("departmentName"));
-        department.setDepartmentDesc(json.getString("departmentDesc"));
+        String departmentName = json.getString("departmentName");
+        if (StringUtils.isEmpty(departmentName)) {
+            return new ResponseEntity().fail(HintMessage.DEPARTMENT_NAME_NULL).toJSONString();
+        }
+        department.setDepartmentName(departmentName);
         department.setFactoryId(json.getInteger("factoryId"));
-        departmentService.save(department);
+        departmentService.saveOrUpdate(department);
         return new ResponseEntity().success().toJSONString();
     }
+
     @DeleteMapping("deleteDepartment/{departmentId}")
-    public String deleteDepartment(@PathVariable Integer departmentId){
+    public String deleteDepartment(@PathVariable Integer departmentId) {
         departmentService.removeById(departmentId);
         return new ResponseEntity().success().toJSONString();
     }

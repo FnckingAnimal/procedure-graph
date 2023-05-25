@@ -1,7 +1,6 @@
 package com.example.graph.entity.result;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.example.graph.entity.table.ImageNode;
 import com.example.graph.entity.table.Node;
 import com.example.graph.utils.Utils;
@@ -22,7 +21,7 @@ public class NodeDTO {
     private Integer width;
     private Integer itemId;
     private Integer flag;
-    private Meta meta;
+    private Meta meta = new Meta();
 
     public NodeDTO(Node node, List<ImageNode> images) {
         this(node);

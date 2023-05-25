@@ -1,5 +1,6 @@
 package com.example.graph.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.table.Item;
@@ -17,4 +18,6 @@ public interface IItemService extends IService<Item> {
     Integer createItem(Item item);
 
     List<ItemDTO> getItemsByFactoryId(Integer factoryId);
+
+    void updateItemUpdateTime(JSONObject json);
 }

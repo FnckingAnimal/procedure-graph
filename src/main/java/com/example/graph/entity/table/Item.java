@@ -1,5 +1,6 @@
 package com.example.graph.entity.table;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,6 +16,7 @@ public class Item {
     @TableField("desc_")
     private String ItemDesc;
     @TableField("update_date")
+    @JSONField(format = "YYYY-MM-dd")
     private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;

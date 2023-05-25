@@ -1,6 +1,8 @@
 package com.example.graph.impl;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.result.ItemDTO;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +45,10 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
                 .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId)
                 .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
                 .leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
-                .eq("id", itemId);
+                .eq("t.id", itemId);
         ItemDTO itemDTO = itemMapper.selectJoinOne(ItemDTO.class, wrapper);
         QueryWrapper<Node> wNode = new QueryWrapper<>();
-        wNode.eq("itemId", itemId);
+        wNode.eq("item_id", itemId);
         List<Node> nodeList = nodeMapper.selectList(wNode);
         if (Utils.isNotEmpty(nodeList)) {
             List<NodeDTO> nodeDTOs = new ArrayList<>();
@@ -62,7 +65,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             itemDTO.setNodes(nodeDTOs);
         }
         QueryWrapper<Link> wLink = new QueryWrapper<>();
-        wLink.eq("itemId", itemId);
+        wLink.eq("item_id", itemId);
         List<Link> linkList = linkMapper.selectList(wLink);
         if (Utils.isNotEmpty(linkList)) {
             List<LinkDTO> linkDTOs = new ArrayList<>();
@@ -160,5 +163,14 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             itemDTOs.add(getItemById(item.getItemId()));
         }
         return itemDTOs;
+    }
+
+    @Override
+    public void updateItemUpdateTime(JSONObject json) {
+        Integer itemId = json.getInteger("id");
+        UpdateWrapper<Item> wrapper = new UpdateWrapper<>();
+        wrapper.set("update_date",new Date())
+                .eq("id",itemId);
+        update(wrapper);
     }
 }

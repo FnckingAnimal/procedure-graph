@@ -24,7 +24,8 @@ import java.util.List;
 @Service
 public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> implements IMachineService {
     // TODO: 2023/5/23 试一下autowired有效果没
-    MachineMapper machineMapper = getBaseMapper();
+    @Resource
+    MachineMapper machineMapper;
     @Resource
     ItemMapper itemMapper;
     @Resource
@@ -39,7 +40,8 @@ public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> impl
     @Override
     public MachineDTO getMachineByName(String name) {
         QueryWrapper<Machine> wrapper = new QueryWrapper<>();
-        Machine machine = machineMapper.selectOne(wrapper.lambda().eq(Machine::getMachineName, name));
+
+        Machine machine = machineMapper.selectOne(wrapper.lambda().eq(Machine::getMachineName,name));
         return BeanUtil.copyProperties(machine, MachineDTO.class);
     }
 
@@ -49,8 +51,8 @@ public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> impl
         wrapperMachine.selectAll(Machine.class)
                 .select(Department::getDepartmentId,Department::getDepartmentName)
                 .select(Item::getItemId)
+                .leftJoin(Item.class,Item::getMachineId,Machine::getMachineId)
                 .leftJoin(Department.class,Department::getDepartmentId,Item::getDepartmentId)
-                .leftJoin(Machine.class,Machine::getMachineId,Item::getMachineId)
                 .eq(Department::getDepartmentId,departmentId);
         return machineMapper.selectJoinList(MachineDTO.class, wrapperMachine);
     }
@@ -67,6 +69,6 @@ public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> impl
 
     @Override
     public void deleteMachine(Integer machineId) {
-
+        removeById(machineId);
     }
 }

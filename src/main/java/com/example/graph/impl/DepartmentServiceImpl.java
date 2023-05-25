@@ -37,15 +37,15 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         wrapper.selectAll(Department.class)
                 .select(Factory::getFactoryName)
                 .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
-                .eq("factoryId", factoryId);
+                .eq("factory_id", factoryId);
         return departmentMapper.selectJoinList(DepartmentDTO.class, wrapper);
     }
 
     @Override
     public DepartmentDTO getDepartmentByFactoryIdAndDepartmentName(Integer factoryId, String departmentName) {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("factoryId", factoryId);
-        paramMap.put("departmentName", departmentName);
+        paramMap.put("factory_id", factoryId);
+        paramMap.put("department_name", departmentName);
         List<Department> departments = departmentMapper.selectByMap(paramMap);
         if (Utils.isEmpty(departments)) {
             return null;

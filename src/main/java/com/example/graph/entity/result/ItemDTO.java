@@ -1,5 +1,6 @@
 package com.example.graph.entity.result;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.graph.entity.table.Link;
 import com.example.graph.entity.table.Node;
 import lombok.Data;
@@ -13,6 +14,8 @@ public class ItemDTO {
      */
     private Integer itemId;
     private String itemDesc;
+    @JSONField(format = "YYYY-MM-dd")
+
     private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;
@@ -27,7 +30,8 @@ public class ItemDTO {
     部门信息
      */
     private String departmentName;
-    private String departmentDesc;
+    @JSONField(format = "YYYY-MM-dd")
+
     private Date departmentUpdateDate;
 
     /*

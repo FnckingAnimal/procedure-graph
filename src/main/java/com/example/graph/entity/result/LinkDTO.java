@@ -4,10 +4,12 @@ import cn.hutool.core.bean.BeanUtil;
 import com.example.graph.entity.table.Link;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Data
 @NoArgsConstructor
 public class LinkDTO {
@@ -20,10 +22,14 @@ public class LinkDTO {
 
     public LinkDTO(Link link) {
         BeanUtil.copyProperties(link, this);
-        startAt.add(link.getStartX());
-        startAt.add(link.getStartY());
-        endAt.add(link.getEndX());
-        endAt.add(link.getEndY());
+        try {
+            startAt.add(link.getStartX());
+            startAt.add(link.getStartY());
+            endAt.add(link.getEndX());
+            endAt.add(link.getEndY());
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+        }
     }
 
 }

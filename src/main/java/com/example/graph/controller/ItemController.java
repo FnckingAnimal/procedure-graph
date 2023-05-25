@@ -1,6 +1,7 @@
 package com.example.graph.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 
@@ -8,10 +9,8 @@ import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
-import com.example.graph.entity.table.ImageNode;
-import com.example.graph.entity.table.Item;
-import com.example.graph.entity.table.Link;
-import com.example.graph.entity.table.Node;
+import com.example.graph.entity.table.*;
+import com.example.graph.mapper.ItemMapper;
 import com.example.graph.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Controller
+@RestController
 @RequestMapping("/item")
 @Slf4j
 public class ItemController extends BaseController {
@@ -40,8 +39,10 @@ public class ItemController extends BaseController {
     参数可以为空，为空则查所有
      */
     @GetMapping("/getItem")
-    public String getItem(@RequestParam Integer factoryId, @RequestParam Integer departmentId,
-                          @RequestParam Integer machineId) {
+    public String getItem(@RequestParam(value = "factoryId", required = false) Integer factoryId,
+                          @RequestParam(value = "departmentId", required = false) Integer departmentId,
+                          @RequestParam(value = "machineId", required = false) Integer machineId) {
+
         ResponseEntity resp = new ResponseEntity();
         if (Utils.isNotNull(departmentId) && Utils.isNotNull(machineId)) {
             ItemDTO itemDTO = itemService.getItem(departmentId, machineId);
@@ -81,19 +82,22 @@ public class ItemController extends BaseController {
         }
 
         String itemDesc = json.getString("itemDesc");
-        Date itemUpdateTime = DateUtil.parse(json.getString("itemUpdateTime"));
         ItemDTO existItem = itemService.getItem(departmentId, machineId);
         if (Utils.isNotNull(existItem)) {
             return resp.fail(HintMessage.CREATE_ITEM_EXIST, existItem).toJSONString();
         }
         Item item = new Item();
         item.setItemDesc(itemDesc);
-        item.setItemUpdateDate(itemUpdateTime);
+        String itemUpdateTime = json.getString("itemUpdateTime");
+        if (StringUtils.isEmpty(itemUpdateTime)) {
+            item.setItemUpdateDate(new Date());
+        } else {
+            item.setItemUpdateDate(DateUtil.parse(itemUpdateTime));
+        }
         item.setMachineId(machineId);
         item.setDepartmentId(departmentId);
         Integer flag = itemService.createItem(item);
         Integer itemId = item.getItemId();
-
 
 
         if (Objects.equals(flag, Code.CREATE_ONE_SUCCESS)) {
@@ -102,6 +106,24 @@ public class ItemController extends BaseController {
 
         ItemDTO itemById = itemService.getItemById(itemId);
         return resp.success(itemById).toJSONString();
+    }
+
+    @PostMapping("/saveOrUpdateItem")
+    public String updateItem(@RequestBody JSONObject json) {
+        Integer itemId = json.getInteger("itemId");
+        itemService.updateItemUpdateTime(json);
+        saveOrUpdateData(json, itemId);
+        return new ResponseEntity().success().toJSONString();
+    }
+
+    @DeleteMapping("/deleteItem/{id}")
+    public String deleteItem(@PathVariable Integer id) {
+        itemService.removeById(id);
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("item_id", id);
+        nodeService.removeByMap(condition);
+        linkService.removeByMap(condition);
+        return new ResponseEntity().success().toJSONString();
     }
 
     private void saveOrUpdateData(JSONObject json, Integer itemId) {
@@ -185,24 +207,6 @@ public class ItemController extends BaseController {
         nodeService.saveOrUpdateBatch(nodeList);
         linkService.saveOrUpdateBatch(linkList);
         imageNodeService.saveOrUpdateBatch(imageList);
-    }
-
-    @PostMapping("/saveOrUpdateItem")
-    public String updateItem(@RequestBody JSONObject json) {
-        JSONObject data = json.getJSONObject("data");
-        Integer itemId = data.getInteger("id");
-        saveOrUpdateData(data,itemId);
-        return new ResponseEntity().success().toJSONString();
-    }
-
-    @DeleteMapping("/deleteItem/{id}")
-    public String deleteItem(@PathVariable Integer id) {
-        itemService.removeById(id);
-        Map<String, Object> condition = new HashMap<>();
-        condition.put("item_id",id);
-        nodeService.removeByMap(condition);
-        linkService.removeByMap(condition);
-        return new ResponseEntity().success().toJSONString();
     }
 
 }

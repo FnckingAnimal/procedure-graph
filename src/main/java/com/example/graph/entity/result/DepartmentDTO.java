@@ -1,5 +1,7 @@
 package com.example.graph.entity.result;
 
+import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,7 @@ import java.util.List;
 public class DepartmentDTO {
     private Integer departmentId;
     private String departmentName;
-    private String departmentDesc;
+    @JSONField(format = "YYYY-MM-dd")
     private Date departmentUpdateDate;
     private Integer factoryId;
     private String factoryName;
