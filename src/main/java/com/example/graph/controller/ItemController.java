@@ -10,10 +10,8 @@ import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
 import com.example.graph.entity.table.*;
-import com.example.graph.mapper.ItemMapper;
 import com.example.graph.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +48,7 @@ public class ItemController extends BaseController {
             if (Utils.isNull(itemDTO)) {
                 return resp.fail(HintMessage.GET_ITEM_NOT_EXIST).toJSONString();
             }
-            return resp.success(itemDTO).toJSONString();
+            return resp.success(Collections.singletonList(itemDTO)).toJSONString();
         }
 
         List<ItemDTO> itemDTOs = itemService.getItems(factoryId, departmentId, machineId);
@@ -112,7 +110,6 @@ public class ItemController extends BaseController {
     @PostMapping("/saveOrUpdateItem")
     public String updateItem(@RequestBody JSONObject json) {
         Integer itemId = json.getInteger("itemId");
-        itemService.updateItemUpdateTime(json);
         saveOrUpdateData(json, itemId);
         return new ResponseEntity().success().toJSONString();
     }
@@ -134,12 +131,19 @@ public class ItemController extends BaseController {
             /*
             创建节点和link
              */
+        // TODO: 2023/5/26
+        Item item = new Item();
+        item.setItemId(itemId);
+        item.setItemUpdateDate(new Date());
+        item.setItemDesc(json.getString("itemDesc"));
+        item.setMachineId(json.getInteger("machineId"));
+        item.setDepartmentId(json.getInteger("departmentId"));
+        item.setItemUpdateDate(new Date());
+        itemService.saveOrUpdate(item);
         JSONArray nodeListJA = json.getJSONArray("nodeList");
         JSONArray linkListJA = json.getJSONArray("linkList");
         JSONArray exampleNodeListJA = json.getJSONArray("exampleNodeList");
         if (Utils.isNotEmpty(nodeListJA)) {
-
-
             for (int i = 0; i < nodeListJA.size(); i++) {
                 JSONObject nodeJO = nodeListJA.getJSONObject(i);
                 JSONObject metaJO = nodeJO.getJSONObject("meta");
@@ -205,9 +209,13 @@ public class ItemController extends BaseController {
                 nodeList.add(node);
             }
         }
+        imageNodeService.deleteByItemId(itemId);
+        nodeService.deleteByItemId(itemId);
+        linkService.deleteByItemId(itemId);
+
         nodeService.saveOrUpdateBatch(nodeList);
-        linkService.saveOrUpdateBatch(linkList);
         imageNodeService.saveOrUpdateBatch(imageList);
+        linkService.saveOrUpdateBatch(linkList);
     }
 
 }

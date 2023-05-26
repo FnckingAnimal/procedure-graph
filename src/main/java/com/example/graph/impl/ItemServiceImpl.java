@@ -41,16 +41,17 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     public ItemDTO getItemById(Integer itemId) {
         MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
         wrapper.selectAll(Item.class)
-                .selectAll(Department.class)
-                .selectAll(Factory.class)
-                .selectAll(Machine.class)
-                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId)
-                .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
-                .leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
+                .select(Department::getDepartmentName, Department::getDepartmentUpdateDate)
+                .selectAs(Factory::getFactoryId, ItemDTO::getFactoryId).select(Factory::getFactoryName)
+                .select(Machine::getMachineName)
+                .leftJoin(Department.class, "d", Department::getDepartmentId, Item::getDepartmentId)
+                .leftJoin(Factory.class, "f", Factory::getFactoryId, Department::getFactoryId)
+                .leftJoin(Machine.class, "m", Machine::getMachineId, Item::getMachineId)
                 .eq("t.id", itemId);
         ItemDTO itemDTO = itemMapper.selectJoinOne(ItemDTO.class, wrapper);
+
         QueryWrapper<Node> wNode = new QueryWrapper<>();
-        wNode.eq("item_id", itemId);
+        wNode.eq("item_id", itemId).eq("flag", 0);
         List<Node> nodeList = nodeMapper.selectList(wNode);
         if (Utils.isNotEmpty(nodeList)) {
             List<NodeDTO> nodeDTOs = new ArrayList<>();
@@ -66,6 +67,19 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             }
             itemDTO.setNodes(nodeDTOs);
         }
+
+        QueryWrapper<Node> wExample = new QueryWrapper<>();
+        wExample.eq("item_id",itemId).eq("flag",1);
+        List<Node> exampleNodeList = nodeMapper.selectList(wExample);
+        if (Utils.isNotEmpty(exampleNodeList)) {
+            List<NodeDTO> exampleNodeDTOs = new ArrayList<>();
+            for (Node node : exampleNodeList) {
+                NodeDTO nodeDTO = new NodeDTO(node);
+                exampleNodeDTOs.add(nodeDTO);
+            }
+            itemDTO.setExampleNodes(exampleNodeDTOs);
+        }
+
         QueryWrapper<Link> wLink = new QueryWrapper<>();
         wLink.eq("item_id", itemId);
         List<Link> linkList = linkMapper.selectList(wLink);
@@ -77,7 +91,6 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             }
             itemDTO.setLinks(linkDTOs);
         }
-
         return itemDTO;
     }
 
@@ -96,26 +109,25 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     public List<ItemDTO> getItems(Integer factoryId, Integer departmentId, Integer machineId) {
         List<ItemDTO> itemDTOs = new ArrayList<>();
         List<ItemDTO> items;
-        if (Utils.isNull(departmentId) && Utils.isNull(machineId)) {
-            return getItemsByFactoryId(factoryId);
-        }
+//        if (Utils.isNull(departmentId) && Utils.isNull(machineId)) {
+//            return getItemsByFactoryId(factoryId);
+//        }
         MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
-        wrapper.select(Item::getItemId);
-
-        wrapper.leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
-                .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId)
-                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId);
-        if (Utils.isNotNull(machineId)){
-            wrapper.eq(Machine::getMachineId,machineId);
+        wrapper.select(Item::getItemId)
+                .leftJoin(Department.class, Department::getDepartmentId, Item::getDepartmentId)
+                .leftJoin(Machine.class, Machine::getMachineId, Item::getMachineId)
+                .leftJoin(Factory.class, Factory::getFactoryId, Department::getFactoryId);
+        if (Utils.isNotNull(machineId)) {
+            wrapper.eq(Machine::getMachineId, machineId);
         }
-        if (Utils.isNotNull(departmentId)){
-            wrapper.eq(Department::getDepartmentId,departmentId);
+        if (Utils.isNotNull(departmentId)) {
+            wrapper.eq(Department::getDepartmentId, departmentId);
         }
-        if (Utils.isNotNull(factoryId)){
-            wrapper.eq(Factory::getFactoryId,factoryId);
+        if (Utils.isNotNull(factoryId)) {
+            wrapper.eq(Factory::getFactoryId, factoryId);
         }
         items = itemMapper.selectJoinList(ItemDTO.class, wrapper);
-        if (Utils.isNotEmpty(items)){
+        if (Utils.isNotEmpty(items)) {
             for (ItemDTO item : items) {
                 itemDTOs.add(getItemById(item.getItemId()));
             }
@@ -171,8 +183,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     public void updateItemUpdateTime(JSONObject json) {
         Integer itemId = json.getInteger("id");
         UpdateWrapper<Item> wrapper = new UpdateWrapper<>();
-        wrapper.set("update_date",new Date())
-                .eq("id",itemId);
+        wrapper.set("update_date", new Date())
+                .eq("id", itemId);
         update(wrapper);
     }
 }

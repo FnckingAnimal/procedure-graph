@@ -6,8 +6,8 @@ import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
+import com.example.graph.entity.table.Factory;
 import com.example.graph.utils.Utils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +29,30 @@ public class FactoryController extends BaseController {
 
             return new ResponseEntity(factoryByName).toJSONString();
         }
-        return resp.fail(HintMessage.CREATE_FACTORY_EXIST).toJSONString();
+        return resp.fail(HintMessage.FACTORY_EXIST).toJSONString();
     }
 
     @GetMapping("/getAllFactories")
     public String getAllFactories() {
         List<FactoryDTO> allFactories = factoryService.getAllFactories();
         return new ResponseEntity(allFactories).toJSONString();
+    }
+
+    @PostMapping("/updateFactory")
+    public String updateFactory(@RequestBody JSONObject json) {
+        // TODO: 2023/5/26
+        Factory factory = new Factory();
+        Integer factoryId = json.getInteger("factoryId");
+        String factoryName = json.getString("factoryName");
+        factory.setFactoryId(factoryId);
+        factory.setFactoryName(factoryName);
+        FactoryDTO factoryByName = factoryService.getFactoryByName(factoryName);
+        if (Utils.isNotNull(factoryByName)) {
+            return new ResponseEntity().fail(HintMessage.FACTORY_EXIST).toJSONString();
+        }
+        factoryService.updateById(factory);
+        FactoryDTO factoryById = factoryService.getFactoryById(factoryId);
+        return new ResponseEntity(factoryById).toJSONString();
     }
 
     @DeleteMapping("/deleteFactoryById/{factoryId}")

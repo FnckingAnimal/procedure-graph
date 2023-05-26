@@ -15,7 +15,6 @@ public class ItemDTO {
     private Integer itemId;
     private String itemDesc;
     @JSONField(format = "YYYY-MM-dd")
-
     private Date itemUpdateDate;
     private Integer departmentId;
     private Integer machineId;
@@ -31,7 +30,6 @@ public class ItemDTO {
      */
     private String departmentName;
     @JSONField(format = "YYYY-MM-dd")
-
     private Date departmentUpdateDate;
 
     /*

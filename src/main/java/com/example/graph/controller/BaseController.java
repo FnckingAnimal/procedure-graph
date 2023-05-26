@@ -23,4 +23,6 @@ public abstract class BaseController {
     ILinkService linkService;
     @Autowired
     IImageNodeService imageNodeService;
+    @Autowired
+    IMachineDepartmentService machineDepartmentService;
 }

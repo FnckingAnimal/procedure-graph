@@ -9,8 +9,10 @@ import com.example.graph.entity.result.MachineDTO;
 import com.example.graph.entity.table.Department;
 import com.example.graph.entity.table.Item;
 import com.example.graph.entity.table.Machine;
+import com.example.graph.entity.table.MachineDepartment;
 import com.example.graph.mapper.DepartmentMapper;
 import com.example.graph.mapper.ItemMapper;
+import com.example.graph.mapper.MachineDepartmentMapper;
 import com.example.graph.mapper.MachineMapper;
 import com.example.graph.service.IMachineService;
 import com.example.graph.utils.Utils;
@@ -23,9 +25,10 @@ import java.util.List;
 
 @Service
 public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> implements IMachineService {
-    // TODO: 2023/5/23 试一下autowired有效果没
     @Resource
     MachineMapper machineMapper;
+    @Resource
+    MachineDepartmentMapper machineDepartmentMapper;
     @Resource
     ItemMapper itemMapper;
     @Resource
@@ -49,11 +52,8 @@ public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> impl
     public List<MachineDTO> getMachinesByDepartmentId(Integer departmentId) {
         MPJLambdaWrapper<Machine> wrapperMachine = new MPJLambdaWrapper<>();
         wrapperMachine.selectAll(Machine.class)
-                .select(Department::getDepartmentId,Department::getDepartmentName)
-                .select(Item::getItemId)
-                .leftJoin(Item.class,Item::getMachineId,Machine::getMachineId)
-                .leftJoin(Department.class,Department::getDepartmentId,Item::getDepartmentId)
-                .eq(Department::getDepartmentId,departmentId);
+                .leftJoin(MachineDepartment.class,"md",MachineDepartment::getMachineId,Machine::getMachineId)
+                .eq("md.department_id",departmentId);
         return machineMapper.selectJoinList(MachineDTO.class, wrapperMachine);
     }
 

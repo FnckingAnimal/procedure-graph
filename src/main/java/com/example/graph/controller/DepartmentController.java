@@ -3,12 +3,14 @@ package com.example.graph.controller;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.table.Department;
 import com.example.graph.entity.result.FactoryDTO;
 import com.example.graph.entity.result.ResponseEntity;
+import com.example.graph.entity.table.MachineDepartment;
 import com.example.graph.utils.Utils;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,7 @@ public class DepartmentController extends BaseController {
             return resp.toJSONString();
         }
         String departmentName = json.getString("departmentName");
-        if (StringUtils.isEmpty(departmentName)){
+        if (StringUtils.isEmpty(departmentName)) {
             return new ResponseEntity().fail(HintMessage.DEPARTMENT_NAME_NULL).toJSONString();
         }
         DepartmentDTO department = departmentService.getDepartmentByFactoryIdAndDepartmentName(factoryId, departmentName);
@@ -89,6 +91,9 @@ public class DepartmentController extends BaseController {
     @DeleteMapping("deleteDepartment/{departmentId}")
     public String deleteDepartment(@PathVariable Integer departmentId) {
         departmentService.removeById(departmentId);
+        QueryWrapper<MachineDepartment> wrapper = new QueryWrapper<>();
+        wrapper.eq("department_id", departmentId);
+        machineDepartmentService.remove(wrapper);
         return new ResponseEntity().success().toJSONString();
     }
 }

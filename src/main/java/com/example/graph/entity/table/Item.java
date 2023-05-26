@@ -14,7 +14,7 @@ public class Item {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer itemId;
     @TableField("desc_")
-    private String ItemDesc;
+    private String itemDesc;
     @TableField("update_date")
     @JSONField(format = "YYYY-MM-dd")
     private Date itemUpdateDate;
