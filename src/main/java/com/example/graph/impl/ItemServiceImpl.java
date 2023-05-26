@@ -13,6 +13,7 @@ import com.example.graph.mapper.*;
 import com.example.graph.service.IItemService;
 import com.example.graph.utils.Utils;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements IItemService {
     @Resource
     DepartmentMapper departmentMapper;

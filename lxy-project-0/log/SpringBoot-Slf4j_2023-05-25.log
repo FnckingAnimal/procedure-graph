@@ -233,3 +233,53 @@ java.io.UncheckedIOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp
 	at java.lang.Thread.run(Thread.java:750)
 Caused by: java.io.IOException: Cannot delete C:\Users\G1656996\AppData\Local\Temp\tomcat.8080.9005309909548374426\work\Tomcat\localhost\ROOT\upload_98201305_e6b1_4cfe_9358_387f9ae63cf7_00000000.tmp
 	... 14 common frames omitted
+2023-05-25 16:51:05.352 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 14416 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 16:51:05.355 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 16:51:06.002 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 16:51:06.008 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:51:06.008 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 16:51:06.009 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 16:51:06.072 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 16:51:06.072 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 682 ms
+2023-05-25 16:51:06.131 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 16:51:06.186 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 16:51:06.206 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 16:51:06.698 [main] WARN  c.b.mybatisplus.core.metadata.TableInfoHelper - This primary key of "machineId" is primitive !不建议如此请使用包装类 in Class: "com.example.graph.entity.table.Machine"
+2023-05-25 16:51:07.116 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:51:07.136 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 16:51:07.140 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 2.078 seconds (JVM running for 2.745)
+2023-05-25 16:51:13.042 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 16:51:13.043 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 16:51:15.511 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 7336 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 16:51:15.514 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 16:51:16.147 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 16:51:16.152 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:51:16.153 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 16:51:16.153 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 16:51:16.213 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 16:51:16.213 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 662 ms
+2023-05-25 16:51:16.299 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 16:51:16.347 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 16:51:16.358 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 16:51:17.226 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:51:17.242 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 16:51:17.247 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 1.997 seconds (JVM running for 2.65)
+2023-05-25 16:52:08.493 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2023-05-25 16:52:08.494 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2023-05-25 16:52:10.830 [main] INFO  com.example.graph.GraphApplication - Starting GraphApplication using Java 1.8.0_372 on CM-H7SFC230502A with PID 2368 (C:\Users\G1656996\Desktop\backup\graph\target\classes started by G1656996 in C:\Users\G1656996\Desktop\backup\graph)
+2023-05-25 16:52:10.832 [main] INFO  com.example.graph.GraphApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-25 16:52:11.460 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-05-25 16:52:11.465 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:52:11.465 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-25 16:52:11.466 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-25 16:52:11.529 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-25 16:52:11.529 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 660 ms
+2023-05-25 16:52:11.617 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2023-05-25 16:52:11.667 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2023-05-25 16:52:11.677 [main] INFO  c.g.y.a.MybatisPlusJoinAutoConfiguration - MPJSqlInjector init
+2023-05-25 16:52:12.542 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-05-25 16:52:12.562 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-25 16:52:12.566 [main] INFO  com.example.graph.GraphApplication - Started GraphApplication in 2.0 seconds (JVM running for 2.642)
+2023-05-25 16:52:26.341 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-25 16:52:26.341 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-05-25 16:52:26.342 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
