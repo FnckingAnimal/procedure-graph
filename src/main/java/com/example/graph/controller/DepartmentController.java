@@ -84,7 +84,7 @@ public class DepartmentController extends BaseController {
         }
         department.setDepartmentName(departmentName);
         department.setFactoryId(json.getInteger("factoryId"));
-        departmentService.saveOrUpdate(department);
+        departmentService.updateDepartment(department);
         return new ResponseEntity().success().toJSONString();
     }
 

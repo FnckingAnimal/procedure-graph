@@ -60,7 +60,7 @@ public class ItemController extends BaseController {
 
     @Transactional
     @PostMapping("/createItem")
-    public String createItem(@RequestBody JSONObject json) {
+    public String createItem(@RequestBody JSONObject json) throws InterruptedException {
         ResponseEntity resp = new ResponseEntity();
         /*
         厂区，部门，节点，link，图片，图例
@@ -108,7 +108,7 @@ public class ItemController extends BaseController {
     }
 
     @PostMapping("/saveOrUpdateItem")
-    public String updateItem(@RequestBody JSONObject json) {
+    public String updateItem(@RequestBody JSONObject json) throws InterruptedException {
         Integer itemId = json.getInteger("itemId");
         saveOrUpdateData(json, itemId);
         return new ResponseEntity().success().toJSONString();
@@ -124,7 +124,7 @@ public class ItemController extends BaseController {
         return new ResponseEntity().success().toJSONString();
     }
 
-    private void saveOrUpdateData(JSONObject json, Integer itemId) {
+    private void saveOrUpdateData(JSONObject json, Integer itemId) throws InterruptedException {
         List<Node> nodeList = new ArrayList<>();
         List<Link> linkList = new ArrayList<>();
         List<ImageNode> imageList = new ArrayList<>();

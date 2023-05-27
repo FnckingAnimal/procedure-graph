@@ -28,6 +28,7 @@ public class MachineDepartmentServiceImpl extends ServiceImpl<MachineDepartmentM
             MachineDepartment machineDepartment = new MachineDepartment();
             machineDepartment.setMachineId(machineId);
             machineDepartment.setDepartmentId(departmentId);
+            machineDepartment.setId(null);
             machineDepartmentList.add(machineDepartment);
         }
         saveOrUpdateBatch(machineDepartmentList);

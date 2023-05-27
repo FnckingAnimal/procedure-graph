@@ -16,11 +16,13 @@ import com.example.graph.entity.table.Machine;
 import com.example.graph.mapper.DepartmentMapper;
 import com.example.graph.mapper.FactoryMapper;
 import com.example.graph.mapper.ItemMapper;
+import com.example.graph.service.IDepartmentService;
 import com.example.graph.service.IItemService;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -37,16 +39,14 @@ class GraphApplicationTests {
     IItemService itemService;
     @Resource
     ItemMapper itemMapper;
+    @Autowired
+    IDepartmentService departmentService;
     @Test
     void testGetItem(){
-        MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
-        wrapper.selectAsClass(Item.class,ItemDTO.class)
-//                .selectAsClass(Machine.class,ItemDTO.class)
-                .selectAsClass(Department.class,ItemDTO.class)
-                .leftJoin(Department.class,Department::getDepartmentId,Item::getDepartmentId)
-//                .leftJoin(Machine.class,Machine::getMachineId,Item::getMachineId)
-                .eq("t.id",4);
-        ItemDTO itemDTO = itemMapper.selectJoinOne(ItemDTO.class, wrapper);
-        System.out.println(JSON.toJSONString(itemDTO));
+        Department department = new Department();
+        department.setDepartmentId(4);
+        department.setDepartmentName("longhuabumen2");
+        department.setFactoryId(1);
+        departmentService.updateDepartment(department);
     }
 }

@@ -55,7 +55,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 
     @Override
     public void updateDepartment(Department department) {
-
+        departmentMapper.updateById(department);
     }
 
     @Override
