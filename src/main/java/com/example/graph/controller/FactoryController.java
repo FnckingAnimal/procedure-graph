@@ -40,7 +40,6 @@ public class FactoryController extends BaseController {
 
     @PostMapping("/updateFactory")
     public String updateFactory(@RequestBody JSONObject json) {
-        // TODO: 2023/5/26
         Factory factory = new Factory();
         Integer factoryId = json.getInteger("factoryId");
         String factoryName = json.getString("factoryName");

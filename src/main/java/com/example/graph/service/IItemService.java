@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IItemService extends IService<Item> {
 
-    ItemDTO getItemById(Integer itemId);
+    ItemDTO getItemById(Integer itemId,Boolean needFullInfo);
 
     ItemDTO getItem(Integer departmentId, Integer machineId);
 

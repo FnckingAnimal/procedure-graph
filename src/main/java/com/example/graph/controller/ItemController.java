@@ -2,14 +2,17 @@ package com.example.graph.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-
 import com.example.graph.constvalue.Code;
 import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.ResponseEntity;
-import com.example.graph.entity.table.*;
+import com.example.graph.entity.table.ImageNode;
+import com.example.graph.entity.table.Item;
+import com.example.graph.entity.table.Link;
+import com.example.graph.entity.table.Node;
 import com.example.graph.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +29,7 @@ public class ItemController extends BaseController {
     @GetMapping("/getItemById/{itemId}")
     public String getItemById(@PathVariable Integer itemId) {
         ResponseEntity resp = new ResponseEntity();
-        ItemDTO itemDTO = itemService.getItemById(itemId);
+        ItemDTO itemDTO = itemService.getItemById(itemId, true);
         if (Utils.isNull(itemDTO)) {
             resp.fail(HintMessage.GET_ITEM_NOT_EXIST);
             return resp.toJSONString();
@@ -60,7 +63,7 @@ public class ItemController extends BaseController {
 
     @Transactional
     @PostMapping("/createItem")
-    public String createItem(@RequestBody JSONObject json) throws InterruptedException {
+    public String createItem(@RequestBody JSONObject json) {
         ResponseEntity resp = new ResponseEntity();
         /*
         厂区，部门，节点，link，图片，图例
@@ -103,10 +106,11 @@ public class ItemController extends BaseController {
             saveOrUpdateData(json, itemId);
         }
 
-        ItemDTO itemById = itemService.getItemById(itemId);
+        ItemDTO itemById = itemService.getItemById(itemId, true);
         return resp.success(itemById).toJSONString();
     }
 
+    @Transactional
     @PostMapping("/saveOrUpdateItem")
     public String updateItem(@RequestBody JSONObject json) throws InterruptedException {
         Integer itemId = json.getInteger("itemId");
@@ -119,19 +123,17 @@ public class ItemController extends BaseController {
         itemService.removeById(id);
         Map<String, Object> condition = new HashMap<>();
         condition.put("item_id", id);
+        imageNodeService.deleteByItemId(id);
         nodeService.removeByMap(condition);
         linkService.removeByMap(condition);
         return new ResponseEntity().success().toJSONString();
     }
 
-    private void saveOrUpdateData(JSONObject json, Integer itemId) throws InterruptedException {
-        List<Node> nodeList = new ArrayList<>();
-        List<Link> linkList = new ArrayList<>();
-        List<ImageNode> imageList = new ArrayList<>();
+    private void saveOrUpdateData(JSONObject json, Integer itemId) {
+
             /*
             创建节点和link
              */
-        // TODO: 2023/5/26
         Item item = new Item();
         item.setItemId(itemId);
         item.setItemUpdateDate(new Date());
@@ -140,9 +142,14 @@ public class ItemController extends BaseController {
         item.setDepartmentId(json.getInteger("departmentId"));
         item.setItemUpdateDate(new Date());
         itemService.saveOrUpdate(item);
+
         JSONArray nodeListJA = json.getJSONArray("nodeList");
         JSONArray linkListJA = json.getJSONArray("linkList");
         JSONArray exampleNodeListJA = json.getJSONArray("exampleNodeList");
+
+        List<Node> nodeList = new ArrayList<>();
+        List<Link> linkList = new ArrayList<>();
+        List<ImageNode> imageList = new ArrayList<>();
         if (Utils.isNotEmpty(nodeListJA)) {
             for (int i = 0; i < nodeListJA.size(); i++) {
                 JSONObject nodeJO = nodeListJA.getJSONObject(i);
@@ -209,13 +216,18 @@ public class ItemController extends BaseController {
                 nodeList.add(node);
             }
         }
-        imageNodeService.deleteByItemId(itemId);
-        nodeService.deleteByItemId(itemId);
-        linkService.deleteByItemId(itemId);
 
-        nodeService.saveOrUpdateBatch(nodeList);
-        imageNodeService.saveOrUpdateBatch(imageList);
-        linkService.saveOrUpdateBatch(linkList);
+        if (Utils.isNotNull(nodeListJA)) {
+            imageNodeService.deleteByItemId(itemId);
+            nodeService.deleteByItemId(itemId);
+
+            nodeService.saveOrUpdateBatch(nodeList);
+            imageNodeService.saveOrUpdateBatch(imageList);
+        }
+        if (Utils.isNotNull(linkListJA)) {
+            linkService.deleteByItemId(itemId);
+            linkService.saveOrUpdateBatch(linkList);
+        }
     }
 
 }

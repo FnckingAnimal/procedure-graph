@@ -38,7 +38,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     ImageNodeMapper imageMapper;
 
     @Override
-    public ItemDTO getItemById(Integer itemId) {
+    public ItemDTO getItemById(Integer itemId, Boolean needFullInfo) {
         MPJLambdaWrapper<Item> wrapper = new MPJLambdaWrapper<>();
         wrapper.selectAll(Item.class)
                 .select(Department::getDepartmentName, Department::getDepartmentUpdateDate)
@@ -50,46 +50,49 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
                 .eq("t.id", itemId);
         ItemDTO itemDTO = itemMapper.selectJoinOne(ItemDTO.class, wrapper);
 
-        QueryWrapper<Node> wNode = new QueryWrapper<>();
-        wNode.eq("item_id", itemId).eq("flag", 0);
-        List<Node> nodeList = nodeMapper.selectList(wNode);
-        if (Utils.isNotEmpty(nodeList)) {
-            List<NodeDTO> nodeDTOs = new ArrayList<>();
-            for (Node node : nodeList) {
-                NodeDTO nodeDTO = new NodeDTO(node);
-                nodeDTOs.add(nodeDTO);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("node_id", node.getId());
-                List<ImageNode> images = imageMapper.selectByMap(map);
-                if (Utils.isNotEmpty(images)) {
-                    nodeDTO.getMeta().setImage(images.stream().map(ImageNode::getUrl).collect(Collectors.toList()));
+        if (needFullInfo) {
+            QueryWrapper<Node> wNode = new QueryWrapper<>();
+            wNode.eq("item_id", itemId).eq("flag", 0);
+            List<Node> nodeList = nodeMapper.selectList(wNode);
+            if (Utils.isNotEmpty(nodeList)) {
+                List<NodeDTO> nodeDTOs = new ArrayList<>();
+                for (Node node : nodeList) {
+                    NodeDTO nodeDTO = new NodeDTO(node);
+                    nodeDTOs.add(nodeDTO);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("node_id", node.getId());
+                    List<ImageNode> images = imageMapper.selectByMap(map);
+                    if (Utils.isNotEmpty(images)) {
+                        nodeDTO.getMeta().setImage(images.stream().map(ImageNode::getUrl).collect(Collectors.toList()));
+                    }
                 }
+                itemDTO.setNodes(nodeDTOs);
             }
-            itemDTO.setNodes(nodeDTOs);
-        }
 
-        QueryWrapper<Node> wExample = new QueryWrapper<>();
-        wExample.eq("item_id",itemId).eq("flag",1);
-        List<Node> exampleNodeList = nodeMapper.selectList(wExample);
-        if (Utils.isNotEmpty(exampleNodeList)) {
-            List<NodeDTO> exampleNodeDTOs = new ArrayList<>();
-            for (Node node : exampleNodeList) {
-                NodeDTO nodeDTO = new NodeDTO(node);
-                exampleNodeDTOs.add(nodeDTO);
+            QueryWrapper<Node> wExample = new QueryWrapper<>();
+            wExample.eq("item_id", itemId).eq("flag", 1);
+            List<Node> exampleNodeList = nodeMapper.selectList(wExample);
+            if (Utils.isNotEmpty(exampleNodeList)) {
+                List<NodeDTO> exampleNodeDTOs = new ArrayList<>();
+                for (Node node : exampleNodeList) {
+                    NodeDTO nodeDTO = new NodeDTO(node);
+                    nodeDTO.setCoordinate(null);
+                    exampleNodeDTOs.add(nodeDTO);
+                }
+                itemDTO.setExampleNodes(exampleNodeDTOs);
             }
-            itemDTO.setExampleNodes(exampleNodeDTOs);
-        }
 
-        QueryWrapper<Link> wLink = new QueryWrapper<>();
-        wLink.eq("item_id", itemId);
-        List<Link> linkList = linkMapper.selectList(wLink);
-        if (Utils.isNotEmpty(linkList)) {
-            List<LinkDTO> linkDTOs = new ArrayList<>();
-            for (Link link : linkList) {
-                LinkDTO linkDTO = new LinkDTO(link);
-                linkDTOs.add(linkDTO);
+            QueryWrapper<Link> wLink = new QueryWrapper<>();
+            wLink.eq("item_id", itemId);
+            List<Link> linkList = linkMapper.selectList(wLink);
+            if (Utils.isNotEmpty(linkList)) {
+                List<LinkDTO> linkDTOs = new ArrayList<>();
+                for (Link link : linkList) {
+                    LinkDTO linkDTO = new LinkDTO(link);
+                    linkDTOs.add(linkDTO);
+                }
+                itemDTO.setLinks(linkDTOs);
             }
-            itemDTO.setLinks(linkDTOs);
         }
         return itemDTO;
     }
@@ -102,7 +105,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if (Utils.isNull(item)) {
             return null;
         }
-        return getItemById(item.getItemId());
+        return getItemById(item.getItemId(), false);
     }
 
     @Override
@@ -129,7 +132,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         items = itemMapper.selectJoinList(ItemDTO.class, wrapper);
         if (Utils.isNotEmpty(items)) {
             for (ItemDTO item : items) {
-                itemDTOs.add(getItemById(item.getItemId()));
+                itemDTOs.add(getItemById(item.getItemId(), false));
             }
         }
         return itemDTOs;
@@ -174,7 +177,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             return null;
         }
         for (ItemDTO item : items) {
-            itemDTOs.add(getItemById(item.getItemId()));
+            itemDTOs.add(getItemById(item.getItemId(), false));
         }
         return itemDTOs;
     }
