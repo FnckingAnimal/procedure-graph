@@ -11,7 +11,7 @@ public interface IItemService extends IService<Item> {
 
     ItemDTO getItemById(Integer itemId,Boolean needFullInfo);
 
-    ItemDTO getItem(Integer departmentId, Integer machineId);
+    ItemDTO getItemBasicInfo(Integer departmentId, Integer machineId);
 
     List<ItemDTO> getItems(Integer factoryId, Integer departmentId, Integer machineId);
 

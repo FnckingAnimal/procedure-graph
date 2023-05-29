@@ -77,6 +77,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
                 for (Node node : exampleNodeList) {
                     NodeDTO nodeDTO = new NodeDTO(node);
                     nodeDTO.setCoordinate(null);
+                    nodeDTO.setId(null);
                     exampleNodeDTOs.add(nodeDTO);
                 }
                 itemDTO.setExampleNodes(exampleNodeDTOs);
@@ -98,7 +99,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     }
 
     @Override
-    public ItemDTO getItem(Integer departmentId, Integer machineId) {
+    public ItemDTO getItemBasicInfo(Integer departmentId, Integer machineId) {
         QueryWrapper<Item> wrapper = new QueryWrapper<>();
         wrapper.eq("department_id", departmentId).eq("machine_id", machineId);
         Item item = itemMapper.selectOne(wrapper);

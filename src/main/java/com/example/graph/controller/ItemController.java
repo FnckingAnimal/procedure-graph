@@ -2,7 +2,6 @@ package com.example.graph.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.graph.constvalue.Code;
@@ -47,7 +46,7 @@ public class ItemController extends BaseController {
 
         ResponseEntity resp = new ResponseEntity();
         if (Utils.isNotNull(departmentId) && Utils.isNotNull(machineId)) {
-            ItemDTO itemDTO = itemService.getItem(departmentId, machineId);
+            ItemDTO itemDTO = itemService.getItemBasicInfo(departmentId, machineId);
             if (Utils.isNull(itemDTO)) {
                 return resp.fail(HintMessage.GET_ITEM_NOT_EXIST).toJSONString();
             }
@@ -84,7 +83,7 @@ public class ItemController extends BaseController {
         }
 
         String itemDesc = json.getString("itemDesc");
-        ItemDTO existItem = itemService.getItem(departmentId, machineId);
+        ItemDTO existItem = itemService.getItemBasicInfo(departmentId, machineId);
         if (Utils.isNotNull(existItem)) {
             return resp.fail(HintMessage.CREATE_ITEM_EXIST, existItem).toJSONString();
         }
