@@ -25,4 +25,6 @@ public abstract class BaseController {
     IImageNodeService imageNodeService;
     @Autowired
     IMachineDepartmentService machineDepartmentService;
+    @Autowired
+    IUserService userService;
 }

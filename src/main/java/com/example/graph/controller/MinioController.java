@@ -4,13 +4,10 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.graph.utils.MinioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "*")
 public class MinioController {
 
@@ -23,7 +20,6 @@ public class MinioController {
      * @return
      */
     @PostMapping("/upload")
-    @ResponseBody
     public String upload(@RequestParam(name = "file", required = false) MultipartFile file) {
         JSONObject res = null;
         try {

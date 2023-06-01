@@ -19,4 +19,6 @@ public interface HintMessage {
     public static final String CREATE_ITEM_EXIST = "已存在流程图，请勿重复创建";
     public static final String DELETE_FACTORY_FAIL_BY_DEPARTMENT = "存在关联的部门，无法删除";
     public static final String DELETE_FACTORY_FAIL_BY_ITEM = "存在关联的流程图，无法删除";
+    public static final String USER_EXIST = "用户已存在";
+    public static final String GET_USER_FAIL = "无用户数据";
 }
