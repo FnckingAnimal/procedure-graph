@@ -212,7 +212,7 @@ public class ItemController extends BaseController {
                 node.setLabel(metaJO.getString("label"));
                 node.setName(metaJO.getString("name"));
                 node.setType(metaJO.getString("type"));
-                node.setShowFlag(metaJO.getInteger("showFlag"));
+                node.setShowFlag(nodeJO.getInteger("showFlag"));
                 nodeList.add(node);
             }
         }
