@@ -159,7 +159,7 @@ public class ItemController extends BaseController {
 
                 node.setId(nodeJO.getString("id"));
                 node.setItemId(itemId);
-                node.setFlag(Code.NODE);
+                node.setTypeFlag(Code.NODE);
                 node.setX(coordinate.get(0));
                 node.setY(coordinate.get(1));
                 node.setWidth(nodeJO.getInteger("width"));
@@ -206,12 +206,13 @@ public class ItemController extends BaseController {
 
                 node.setId(nodeJO.getString("id"));
                 node.setItemId(itemId);
-                node.setFlag(Code.EXAMPLE_NODE);
+                node.setTypeFlag(Code.EXAMPLE_NODE);
                 node.setWidth(nodeJO.getInteger("width"));
                 node.setHeight(nodeJO.getInteger("height"));
                 node.setLabel(metaJO.getString("label"));
                 node.setName(metaJO.getString("name"));
                 node.setType(metaJO.getString("type"));
+                node.setShowFlag(metaJO.getInteger("showFlag"));
                 nodeList.add(node);
             }
         }

@@ -21,7 +21,6 @@ public class Node {
     private String type;
     @TableField("item_id")
     private Integer itemId;
-    private Integer flag;
-
-
+    private Integer typeFlag;
+    private Integer showFlag;
 }

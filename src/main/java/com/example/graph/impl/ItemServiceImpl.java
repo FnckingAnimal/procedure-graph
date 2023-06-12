@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.graph.constvalue.Code;
 import com.example.graph.entity.result.DepartmentDTO;
 import com.example.graph.entity.result.ItemDTO;
 import com.example.graph.entity.result.LinkDTO;
@@ -52,7 +53,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
         if (needFullInfo) {
             QueryWrapper<Node> wNode = new QueryWrapper<>();
-            wNode.eq("item_id", itemId).eq("flag", 0);
+            wNode.eq("item_id", itemId).eq("type_flag", Code.NODE);
             List<Node> nodeList = nodeMapper.selectList(wNode);
             if (Utils.isNotEmpty(nodeList)) {
                 List<NodeDTO> nodeDTOs = new ArrayList<>();
@@ -70,7 +71,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             }
 
             QueryWrapper<Node> wExample = new QueryWrapper<>();
-            wExample.eq("item_id", itemId).eq("flag", 1);
+            wExample.eq("item_id", itemId).eq("type_flag", Code.EXAMPLE_NODE);
             List<Node> exampleNodeList = nodeMapper.selectList(wExample);
             if (Utils.isNotEmpty(exampleNodeList)) {
                 List<NodeDTO> exampleNodeDTOs = new ArrayList<>();

@@ -20,7 +20,8 @@ public class NodeDTO {
     private Integer height;
     private Integer width;
     private Integer itemId;
-    private Integer flag;
+    private Integer typeFlag;
+    private Boolean showFlag;
     private Meta meta = new Meta();
 
     public NodeDTO(Node node, List<ImageNode> images) {
