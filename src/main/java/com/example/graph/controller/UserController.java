@@ -7,6 +7,7 @@ import com.example.graph.constvalue.HintMessage;
 import com.example.graph.entity.result.ResponseEntity;
 import com.example.graph.entity.table.User;
 import com.example.graph.utils.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
+@Slf4j
 public class UserController extends BaseController {
     @PostMapping("/createUser")
     public String createUser(@RequestBody JSONObject json) {
