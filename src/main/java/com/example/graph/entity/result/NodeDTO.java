@@ -1,6 +1,7 @@
 package com.example.graph.entity.result;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.example.graph.constvalue.Code;
 import com.example.graph.entity.table.ImageNode;
 import com.example.graph.entity.table.Node;
 import com.example.graph.utils.Utils;
@@ -21,7 +22,7 @@ public class NodeDTO {
     private Integer width;
     private Integer itemId;
     private Integer typeFlag;
-    private Integer showFlag;
+    private Boolean showFlag;
     private Meta meta = new Meta();
 
     public NodeDTO(Node node, List<ImageNode> images) {
@@ -31,9 +32,13 @@ public class NodeDTO {
             meta.setImage(urls);
         }
     }
-    public NodeDTO(Node node){
+
+    public NodeDTO(Node node) {
         BeanUtil.copyProperties(node, this);
         BeanUtil.copyProperties(node, meta);
+        if (node.getTypeFlag() == Code.EXAMPLE_NODE && Utils.isNull(node.getShowFlag())) {
+            setShowFlag(false);
+        }
         coordinate.add(node.getX());
         coordinate.add(node.getY());
     }

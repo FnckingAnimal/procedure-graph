@@ -111,7 +111,7 @@ public class ItemController extends BaseController {
 
     @Transactional
     @PostMapping("/saveOrUpdateItem")
-    public String updateItem(@RequestBody JSONObject json) throws InterruptedException {
+    public String updateItem(@RequestBody JSONObject json) {
         Integer itemId = json.getInteger("itemId");
         saveOrUpdateData(json, itemId);
         return new ResponseEntity().success().toJSONString();
@@ -212,7 +212,7 @@ public class ItemController extends BaseController {
                 node.setLabel(metaJO.getString("label"));
                 node.setName(metaJO.getString("name"));
                 node.setType(metaJO.getString("type"));
-                node.setShowFlag(nodeJO.getInteger("showFlag"));
+                node.setShowFlag(nodeJO.getBoolean("showFlag") ? 1 : 0);
                 nodeList.add(node);
             }
         }
